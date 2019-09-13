@@ -1,7 +1,7 @@
-const roomServices = [
+const orders = [
   {
     userID: 5,
-    date: "2019/08/02",
+    date: "2019/09/22",
     food: "Rustic Concrete Sandwich",
     totalCost: 14.9
   },
@@ -19,7 +19,7 @@ const roomServices = [
   },
   {
     userID: 8,
-    date: "2019/08/02",
+    date: "2019/10/02",
     food: "Practical Granite Sandwich",
     totalCost: 14.87
   },
@@ -31,7 +31,7 @@ const roomServices = [
   },
   {
     userID: 3,
-    date: "2019/09/11",
+    date: "2019/09/21",
     food: "Awesome Cotton Sandwich",
     totalCost: 20.79
   },
@@ -43,7 +43,7 @@ const roomServices = [
   },
   {
     userID: 8,
-    date: "2019/09/16",
+    date: "2019/10/16",
     food: "Incredible Concrete Sandwich",
     totalCost: 24.77
   },
@@ -55,31 +55,31 @@ const roomServices = [
   },
   {
     userID: 5,
-    date: "2019/07/28",
+    date: "2019/09/28",
     food: "Intelligent Fresh Sandwich",
     totalCost: 12.32
   },
   {
     userID: 9,
-    date: "2019/08/06",
+    date: "2019/09/26",
     food: "Unbranded Wooden Sandwich",
     totalCost: 12.83
   },
   {
     userID: 10,
-    date: "2019/08/11",
+    date: "2019/09/22",
     food: "Handcrafted Rubber Sandwich",
     totalCost: 22.45
   },
   {
     userID: 3,
-    date: "2019/08/17",
+    date: "2019/10/17",
     food: "Tasty Granite Sandwich",
     totalCost: 18.73
   },
   {
     userID: 10,
-    date: "2019/08/12",
+    date: "2019/09/29",
     food: "Refined Cotton Sandwich",
     totalCost: 12.65
   },
@@ -103,22 +103,22 @@ const roomServices = [
   },
   {
     userID: 9,
-    date: "2019/08/24",
+    date: "2019/09/24",
     food: "Awesome Soft Sandwich",
     totalCost: 9.63
   },
   {
     userID: 4,
-    date: "2019/09/14",
+    date: "2019/10/14",
     food: "Generic Wooden Sandwich",
     totalCost: 10.63
   },
   {
-    userID: 87,
-    date: "2019/08/08",
+    userID: 7,
+    date: "2019/10/08",
     food: "Refined Plastic Sandwich",
     totalCost: 7.47
   }
 ]
 
-export default roomServices;
+export default orders;
