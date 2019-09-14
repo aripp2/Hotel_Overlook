@@ -40,12 +40,14 @@ describe('Hotel', () => {
 
   it('should be able to find bookings for date', () => {
     expect(hotel.getTodaysBookings()).to.eql([
+      { userID: 5, date: '2019/09/22', roomNumber: 2 },
       { userID: 8, date: '2019/09/22', roomNumber: 18 },
       { userID: 10, date: '2019/09/22', roomNumber: 4 }]);
   });
 
   it('should be able to get customer info by their id', () => {
-    expect(hotel.getCustomerById(10).name).to.equal('Chyna Gulgowski');
+    hotel.getCustomerById(10);
+    expect(hotel.selectedCustomer.name).to.equal('Chyna Gulgowski');
   });
 
   it('should be able to add a new customer', () => {
@@ -54,8 +56,33 @@ describe('Hotel', () => {
       name: 'Amy Rippeto', 
       selectedBookings: [],
       selectedOrders: []
-    })
-  })
+    });
+    expect(hotel.customers.length).to.equal(11);
+  });
+
+  it('should be able to get rooms available for date', () => {
+    expect(hotel.getRoomsAvailable(date).length).to.equal(17);
+  });
+
+  it('should be able to get total revenue for day', () => {
+    expect(hotel.getTotalRevenue(date)).to.equal(774.46);
+  });
+
+  it('should be able to get percent occupancy', () => {
+    expect(hotel.getPercentOccupancy(date)).to.equal(15);
+  });
+
+  it('should be able to unbook a room', () => {
+    expect(hotel.bookings.length).to.equal(20);
+    hotel.unbookRoom({ userID: 4, date: "2019/09/28", roomNumber: 13});
+    expect(hotel.bookings.length).to.equal(19);
+  });
+
+  it('should be able to book a room', () => {
+    hotel.bookRoom(10, '2019/10/10', 2);
+    expect(hotel.bookings[hotel.bookings.length - 1]).to.eql({userID: 10, date: '2019/10/10', roomNumber: 2}); 
+  });
+
 
 });
 

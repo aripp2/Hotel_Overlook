@@ -1,7 +1,7 @@
 import chai from 'chai';
-import spies from "chai-spies";
+// import spies from "chai-spies";
 const expect = chai.expect;
-chai.use(spies);
+// chai.use(spies);
 
 import Booking from '../src/Booking';
 import bookings from '../src/sample-data/bookings-sample-data';
@@ -11,7 +11,7 @@ describe('Booking', () => {
 
   beforeEach(() => {
     date = '2019/09/22';
-    booking = new Booking(10, date, 22);
+    booking = new Booking(10, date, 2);
   });
 
   it('should be a function', () => {

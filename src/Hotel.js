@@ -9,6 +9,7 @@ class Hotel {
     this.bookings = bookings.map(booking => new Booking(booking.userID, booking.date, booking.roomNumber));
     this.orders = orders.map(order => new Order(order.userID, order.date, order.food, order.totalCost));
     this.customers = customers.map(customer => new Customer(customer.id, customer.name, this.bookings, this.orders));
+    this.selectedCustomer;
     // console.log(this)
   }
 
@@ -21,7 +22,9 @@ class Hotel {
   }
 
   getCustomerById(id) {
-    return this.customers.find(customer => customer.id === id);
+    this.selectedCustomer = this.customers.find(customer => customer.id === id);
+    // include find by name
+    // error if not found
   }
 
   addNewCustomer(name) {
@@ -29,6 +32,52 @@ class Hotel {
     this.customers.push(added);
     return added;
   }
+
+  getRoomsAvailable(date) {
+    let bookedRooms = this.getTodaysBookings().map(booking => booking.roomNumber);
+    return this.rooms.filter(room => {
+      if (!bookedRooms.includes(room.number)) {
+        return room;
+      }
+    });
+  }
+
+  getTotalRevenue(date) {
+    let bookingsTotal = this.getTodaysBookings(date).reduce((total, booking) => {
+      this.rooms.find(room => {
+        if (room.number === booking.roomNumber) {
+        total += room.costPerNight;
+        }
+      });
+      return total;
+    }, 0);
+    let ordersTotal = this.getTodaysOrders(date).reduce((total2, order) => {
+      total2 += order.totalCost;
+      return total2;
+    }, 0);
+    return +(bookingsTotal + ordersTotal).toFixed(2);
+  }
+
+  getPercentOccupancy(date) {
+    let percent = +(((this.getTodaysBookings().length / this.rooms.length) * 100).toFixed(2));
+  return percent;
+  }
+
+  unbookRoom(booking) {
+    let roomToUnbook = this.bookings.findIndex(reservation => {
+      return JSON.stringify(Object.values(reservation)) === JSON.stringify(Object.values(booking));
+    });
+    this.bookings.splice(roomToUnbook, 1);
+  }
+
+  bookRoom(id, day, rmNum) {
+    // let availableRooms = getRoomsAvailable(day);
+    this.bookings.push(new Booking(id, day, rmNum));
+  }
+
+
+
+
 }
 
 export default Hotel;
