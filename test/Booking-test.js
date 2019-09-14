@@ -3,19 +3,19 @@ import spies from "chai-spies";
 const expect = chai.expect;
 chai.use(spies);
 
-import Bookings from '../src/Orders';
+import Booking from '../src/Booking';
 import bookings from '../src/sample-data/bookings-sample-data';
 
-describe('Bookings', () => {
-  let date, bookings;
+describe('Booking', () => {
+  let date, booking;
 
   beforeEach(() => {
     date = '2019/09/22';
-    bookings = new Bookings();
+    booking = new Booking(10, date, 22);
   });
 
   it('should be a function', () => {
-    expect(Bookings).to.be.a('function');
+    expect(Booking).to.be.a('function');
   });
 
 

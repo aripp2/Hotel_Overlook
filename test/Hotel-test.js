@@ -44,5 +44,18 @@ describe('Hotel', () => {
       { userID: 10, date: '2019/09/22', roomNumber: 4 }]);
   });
 
+  it('should be able to get customer info by their id', () => {
+    expect(hotel.getCustomerById(10).name).to.equal('Chyna Gulgowski');
+  });
+
+  it('should be able to add a new customer', () => {
+    expect(hotel.addNewCustomer('Amy Rippeto')).to.eql({
+      id: 11,
+      name: 'Amy Rippeto', 
+      selectedBookings: [],
+      selectedOrders: []
+    })
+  })
+
 });
 
