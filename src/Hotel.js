@@ -15,11 +15,21 @@ class Hotel {
   }
 
   getTodaysOrders() {
-    return this.orders.filter(order => order.date === this.date);
+    let todayOrders = this.orders.filter(order => order.date === this.date).sort((a, b) => a.userID - b.userID);
+    let updatedOrders = todayOrders.map(order => {
+      let guest = this.customers.find(customer => customer.id === order.userID)
+      return {
+        id: order.userID,
+        guest: guest.name,
+        food: order.food,
+        cost: order.totalCost
+      }
+    })
+    return todayOrders;
   }
 
   getTodaysBookings() {
-    return this.bookings.filter(booking => booking.date === this.date)
+    return this.bookings.filter(booking => booking.date === this.date).sort((a, b) => a.userID - b.userID)
   }
 
   getCustomerById(id) {

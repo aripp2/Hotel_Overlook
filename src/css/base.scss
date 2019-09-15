@@ -12,12 +12,22 @@ body {
   background-color: $primary-background;
 }
 
+header {
+  margin: 10px auto;
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+
+}
+
 .tabs {
   margin: 10px auto;
   width: 90%;
 }
 
 ul {
+  margin-bottom: 0;
+  padding: 0;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -34,17 +44,20 @@ ul {
   border-top-right-radius: 6px;
 }
 a {
-  background: #eaeaed;
-  border: 1px solid #cecfd5;
+  height: 30px;
+  background: $accent-color;
+  border: 1px solid $lighter-font-color;
   color: $lighter-font-color;
   display: block;
+  font-size: 1.3em;
   font-weight: 600;
   padding: 10px 0;
   text-align: center;
   text-decoration: none;
-}
-a:hover {
-  color: $dark-font-color;
+
+  &:hover {
+    color: $primary-background;
+  }
 }
 .tab-active a {
   background: $highlight-color;
@@ -52,7 +65,8 @@ a:hover {
   // color: #2db34a;
   cursor: default;
 }
-.tabs-stage {
+.tabs-content {
+  background: $highlight-color;
   border: 1px solid $lighter-font-color;
   border-radius: 0 0 6px 6px;
   border-top: 0;

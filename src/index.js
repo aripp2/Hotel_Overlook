@@ -1,6 +1,7 @@
 // An example of how you import jQuery into a JS file if you use jQuery in that file
 import $ from 'jquery';
 import Hotel from '../src/Hotel';
+import domUpdates from '../src/domUpdates';
 
 import './css/base.scss';
 
@@ -25,14 +26,23 @@ Promise.all([roomsData, bookingsData, ordersData, customersData])
 const createHotel = (date, rooms, bookings, roomServices, customers) => {
   hotel = new Hotel(date, rooms, bookings, roomServices, customers);
   $('#today').text(today);
+  createMain();
+}
+
+const createMain = () => {
+  let revenue = hotel.getTotalRevenue(date);
+  let available = hotel.rooms.length - hotel.getTodaysBookings(date).length;
+  let percent = hotel.getPercentOccupancy(date)
+  domUpdates.appendHotelInfo(revenue, available, percent);
+
 }
 
 $(document).ready(() => {
   // $('#page').hide();
   
   // Show the first tab by default
-  $('.tabs-stage div').hide();
-  $('.tabs-stage div:first').show();
+  $('.tabs-content div').hide();
+  $('.tabs-content div:first').show();
   $('.tabs-nav li:first').addClass('tab-active');
   
   // Change tab class and display content
@@ -40,7 +50,7 @@ $(document).ready(() => {
     event.preventDefault();
     $('.tabs-nav li').removeClass('tab-active');
     $(this).parent().addClass('tab-active');
-    $('.tabs-stage div').hide();
+    $('.tabs-content div').hide();
     $($(this).attr('href')).show();
   });
 
