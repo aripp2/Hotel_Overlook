@@ -1,6 +1,63 @@
-/* This is an example of using Sass, otherwise plain CSS works too*/
-$primary-background: pink;
+@import 'normalize';
+@import 'variables';
+
+
+*:after,
+*:before {
+  box-sizing: border-box;
+}
 
 body {
+  color: $dark-font-color;
   background-color: $primary-background;
+}
+
+.tabs {
+  margin: 10px auto;
+  width: 90%;
+}
+
+ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.tabs-nav li {
+  list-style: none;
+  width: 50%;
+}
+.tabs-nav li:first-child a {
+  border-right: 0;
+  border-top-left-radius: 6px;
+}
+.tabs-nav li:last-child a {
+  border-top-right-radius: 6px;
+}
+a {
+  background: #eaeaed;
+  border: 1px solid #cecfd5;
+  color: $lighter-font-color;
+  display: block;
+  font-weight: 600;
+  padding: 10px 0;
+  text-align: center;
+  text-decoration: none;
+}
+a:hover {
+  color: $dark-font-color;
+}
+.tab-active a {
+  background: $highlight-color;
+  border-bottom-color: transparent;
+  // color: #2db34a;
+  cursor: default;
+}
+.tabs-stage {
+  border: 1px solid $lighter-font-color;
+  border-radius: 0 0 6px 6px;
+  border-top: 0;
+  clear: both;
+  padding: 24px 30px;
+  position: relative;
+  top: -1px;
 }

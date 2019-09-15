@@ -1,13 +1,41 @@
 <!DOCTYPE html>
 <html lang="en-US">
   <head>
-    <title>Webpack Starter Kit</title>
+    <title>Hotel Overlook</title>
   </head>
   <body>
-    <h1>Webpack Starter Kit</h1>
-
-    <img src="./images/turing-logo.png" alt="turing logo" height="100px" width="100px">
-
-    <!-- Do not include the index.js or main.bundle.js file here - it is done automatically by the webpack server -->
+    <section id="splash">
+      <h1>Welcome to Hotel Overlook</h1>
+      <button id="enter">Enter</button>
+    </section>
+    <main id="page">
+      <header>
+        <h2>Hotel Overlook</h2>
+        <h3>Today is <span id="today"></span></h3>
+      </header>
+      <div class="tabs">
+        <ul class="tabs-nav">
+          <li><a href="#main">Main</a></li>
+          <li><a href="#customer">Customer</a></<li> 
+          <li><a href="#bookings">Bookings</a></<li>  
+          <li><a href="#orders">Orders</a></li>
+        </ul>
+        <div class="tabs-content">
+          <div id="main">
+            <p></p>
+          </div>
+          <div id="cutomer">
+            <p></p>
+          </div>
+          <div id="bookings">
+            <p></p>
+          </div>
+          <div id="orders">
+            <p></p>
+          </div>
+        </div>
+      </div>
+    </main>
+   
   </body>
 </html>
