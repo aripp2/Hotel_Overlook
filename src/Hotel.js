@@ -9,8 +9,9 @@ class Hotel {
     this.bookings = bookings.map(booking => new Booking(booking.userID, booking.date, booking.roomNumber));
     this.orders = orders.map(order => new Order(order.userID, order.date, order.food, order.totalCost));
     this.customers = customers.map(customer => new Customer(customer.id, customer.name, this.bookings, this.orders));
-    this.selectedCustomer;
-    // console.log(this)
+    this.selectedCustomer = null;
+    this.menu = this.createMenu(orders); 
+    // console.log(this.menu)
   }
 
   getTodaysOrders() {
@@ -73,6 +74,19 @@ class Hotel {
   bookRoom(id, day, rmNum) {
     // let availableRooms = getRoomsAvailable(day);
     this.bookings.push(new Booking(id, day, rmNum));
+  }
+
+  createMenu(orders) {
+    return this.orders.reduce((items, order) => {
+      if (!items.includes({food: order.food, price: order.totalCost})) {
+        items.push({food: order.food, price: order.totalCost});
+      }
+      return items;
+    }, []).sort((a, b) => a.price - b.price);
+  }
+
+  orderFood(id, date, food, cost) {
+    this.orders.push(new Order(id, date, food, cost));
   }
 
 

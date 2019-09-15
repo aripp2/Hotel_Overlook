@@ -22,6 +22,10 @@ describe('Hotel', () => {
     expect(Hotel).to.be.a('function');
   });
 
+  it('should have a menu sorted by price', () => {
+    expect(hotel.menu[0]).to.eql({food: 'Rustic Soft Sandwich', price: 6.78})
+  });
+
   it('should be able to find orders for date', () => {
     expect(hotel.getTodaysOrders()).to.eql([
       {
@@ -81,6 +85,16 @@ describe('Hotel', () => {
   it('should be able to book a room', () => {
     hotel.bookRoom(10, '2019/10/10', 2);
     expect(hotel.bookings[hotel.bookings.length - 1]).to.eql({userID: 10, date: '2019/10/10', roomNumber: 2}); 
+  });
+
+  it('should be able to order food', () => {
+    hotel.orderFood(10, '2019/09/22', 'Tasty Granite Sandwich', 18.73);
+    expect(hotel.orders[hotel.orders.length - 1]).to.eql({
+      userID: 10,
+      date: "2019/09/22",
+      food: "Tasty Granite Sandwich",
+      totalCost: 18.73
+    });
   });
 
 
