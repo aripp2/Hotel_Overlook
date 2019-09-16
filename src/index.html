@@ -17,17 +17,46 @@
       <div class="tabs">
         <ul class="tabs-nav">
           <li><a href="#main">Main</a></li>
-          <li><a href="#customer">Customer</a></<li> 
+          <li><a href="#guest">Guest</a></<li> 
           <li><a href="#bookings">Bookings</a></<li>  
-          <li><a href="#orders">Orders</a></li>
+          <li><a href="#orders">Room Service Orders</a></li>
         </ul>
         <div class="tabs-content">
           <div id="main">
             <section id="hotel-info"></section>
             <!-- chart?? -->
+          <h4>Today's Bookings:</h4>
+          <table class="todays-bookings">
+            <tr>
+              <th>Guest ID</th>
+              <th>Guest Name</th>
+              <th>Room Number</th>
+              <th>Cancel Booking</th>
+              <th>Change Booking</th>
+              <th>Add Room Service</th>
+            </tr>
+          </table>
+            <h4>Today's Room Service Orders:</h4>
+          <table class="todays-orders">
+            <tr>
+              <th>Guest ID</th>
+              <th>Guest Name</th>
+              <th>Food Item</th>
+              <th>Total Cost</th>
+            </tr>
+          </table>
           </div>
-          <div id="cutomer">
-            <p></p>
+          <div id="guest">
+            <form id="guest-search">
+              <select class="guest-names">
+                <option>Select a Guest...</option>
+              </select>
+              <button id="find-guest-btn" disabled="true">Find Guest</button>
+            </form>
+            <form id="new-guest">
+              <input type="text" placeholder="Enter New Guest's Name">
+              <button id="add-guest-btn" disabled="true">Add Guest</button>
+            </form>
           </div>
           <div id="bookings">
             <p></p>

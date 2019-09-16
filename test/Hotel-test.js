@@ -26,6 +26,7 @@ describe('Hotel', () => {
     expect(hotel.menu[0]).to.eql({food: 'Rustic Soft Sandwich', price: 6.78})
   });
 
+//describe getTodaysOrders()
   it('should be able to find orders for date', () => {
     expect(hotel.getTodaysOrders()).to.eql([
       {
@@ -42,6 +43,7 @@ describe('Hotel', () => {
       }])
   });
 
+//describe getTodaysBookings()
   it('should be able to find bookings for date', () => {
     expect(hotel.getTodaysBookings()).to.eql([
       { userID: 5, date: '2019/09/22', roomNumber: 2 },

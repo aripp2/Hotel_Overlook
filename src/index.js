@@ -7,34 +7,38 @@ import './css/base.scss';
 
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 // import './images/turing-logo.png'
-let date, today, hotel, roomsData, bookingsData, ordersData, customersData
+let date, today, hotel, rooms, bookings, orders, customers
 
 date = new Date().toISOString().replace('-', '/').split('T')[0].replace('-', '/');
 today = new Date().toString().split(' ').slice(0, 4).join(' ');
 
-roomsData = fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/rooms/rooms');
-bookingsData = fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings');
-ordersData = fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/room-services/roomServices');
-customersData = fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/users/users');
+let roomsData = fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/rooms/rooms');
+let bookingsData = fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings');
+let ordersData = fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/room-services/roomServices');
+let customersData = fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/users/users');
 
 Promise.all([roomsData, bookingsData, ordersData, customersData])
     .then(responses => Promise.all(responses.map(response => response.json())))
     .then(data => createHotel(date, data[0].rooms, data[1].bookings, data[2].roomServices, data[3].users))
     .catch(error => console.log(error));
 
-
 const createHotel = (date, rooms, bookings, roomServices, customers) => {
   hotel = new Hotel(date, rooms, bookings, roomServices, customers);
   $('#today').text(today);
-  createMain();
+  createMainTab();
+  creatGuestsTab();
 }
 
-const createMain = () => {
+const createMainTab = () => {
   let revenue = hotel.getTotalRevenue(date);
-  let available = hotel.rooms.length - hotel.getTodaysBookings(date).length;
+  let available = hotel.rooms.length - hotel.todayBookings.length;
   let percent = hotel.getPercentOccupancy(date)
   domUpdates.appendHotelInfo(revenue, available, percent);
 
+}
+
+const creatGuestsTab = () => {
+  domUpdates.makeGuestNames(hotel.customers);
 }
 
 $(document).ready(() => {
