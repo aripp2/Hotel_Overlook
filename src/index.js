@@ -26,18 +26,19 @@ const createHotel = (date, rooms, bookings, roomServices, customers) => {
   hotel = new Hotel(date, rooms, bookings, roomServices, customers);
   $('#today').text(today);
   createMainTab();
-  creatGuestsTab();
+  createGuestsTab();
 }
 
 const createMainTab = () => {
+  hotel.getTodaysBookings();
+  hotel.getTodaysOrders();
   let revenue = hotel.getTotalRevenue(date);
   let available = hotel.rooms.length - hotel.todayBookings.length;
   let percent = hotel.getPercentOccupancy(date)
   domUpdates.appendHotelInfo(revenue, available, percent);
-
 }
 
-const creatGuestsTab = () => {
+const createGuestsTab = () => {
   domUpdates.makeGuestNames(hotel.customers);
 }
 
@@ -57,6 +58,28 @@ $(document).ready(() => {
     $('.tabs-content div').hide();
     $($(this).attr('href')).show();
   });
+
+  $('#guest-search').on('change', () => {
+    // $('#find-guest-btn').prop('disabled', false);
+    let id = $('#guest-search option:selected').val();
+    id = parseInt(id);
+    // $('#find-guest-btn').on('click', () => {
+      hotel.getCustomerById(id);
+
+    // })
+  });
+
+  $('#new-guest-input').on('change', () => {
+    $('#add-guest-btn').prop('disabled', false);
+    $('#add-guest-btn').click(() => {
+      let name = $('#new-guest-input').val();
+      $('#new-guest-input').val('');
+      hotel.addNewCustomer(name);
+      $('.guest-names').empty('option');
+      $('.guest-names').append(`<option>Select a Guest...</option>`)
+      domUpdates.makeGuestNames(hotel.customers);
+    })
+  })
 
 });
 

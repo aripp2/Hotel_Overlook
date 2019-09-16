@@ -12,7 +12,7 @@
       <header>
         <h2>Hotel Overlook</h2>
         <h3>Today is <span id="today"></span></h3>
-        <h3 id="selected-customer">Welcome</h3>
+        <h3 id="selected-guest">Welcome</h3>
       </header>
       <div class="tabs">
         <ul class="tabs-nav">
@@ -31,12 +31,13 @@
               <th>Guest ID</th>
               <th>Guest Name</th>
               <th>Room Number</th>
+              <th>Nightly Cost</th>
               <th>Cancel Booking</th>
               <th>Change Booking</th>
               <th>Add Room Service</th>
             </tr>
           </table>
-            <h4>Today's Room Service Orders:</h4>
+          <h4>Today's Room Service Orders:</h4>
           <table class="todays-orders">
             <tr>
               <th>Guest ID</th>
@@ -54,15 +55,51 @@
               <button id="find-guest-btn" disabled="true">Find Guest</button>
             </form>
             <form id="new-guest">
-              <input type="text" placeholder="Enter New Guest's Name">
+              <input id="new-guest-input" type="text" placeholder="Enter New Guest's Name">
               <button id="add-guest-btn" disabled="true">Add Guest</button>
             </form>
           </div>
           <div id="bookings">
-            <p></p>
+            <h4>Today's Bookings:</h4>
+            <table class="todays-bookings-tab">
+              <tr>
+                <th>Guest ID</th>
+                <th>Guest Name</th>
+                <th>Room Number</th>
+                <th>Nightly Cost</th>
+                <th>Cancel Booking</th>
+                <th>Change Booking</th>
+                <th>Add Room Service</th>
+              </tr>
+            </table>
+            <table class="guest-bookings">
+              <tr>
+                <th>Date</th>
+                <th>Room Number</th>
+                <th>Nightly Cost</th>
+                <th>Cancel Booking</th>
+                <th>Change Booking</th>
+                <th>Add Room Service</th>
+              </tr>
+            </table>
           </div>
           <div id="orders">
-            <p></p>
+            <h4>Today's Room Service Orders:</h4>
+            <table class="todays-orders-tab">
+              <tr>
+                <th>Guest ID</th>
+                <th>Guest Name</th>
+                <th>Food Item</th>
+                <th>Total Cost</th>
+              </tr>
+            </table>
+            <table class="guest-orders">
+              <tr>
+                <th>Date</th>
+                <th>Food Item</th>
+                <th>Total Cost</th>
+              </tr>
+            </table>
           </div>
         </div>
       </div>

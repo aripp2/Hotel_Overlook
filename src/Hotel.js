@@ -10,9 +10,8 @@ class Hotel {
     this.bookings = bookings.map(booking => new Booking(booking.userID, booking.date, booking.roomNumber));
     this.orders = orders.map(order => new Order(order.userID, order.date, order.food, order.totalCost));
     this.customers = customers.map(customer => new Customer(customer.id, customer.name, this.bookings, this.orders));
-    this.todayBookings = this.getTodaysBookings();
-    console.log(this.todayBookings)
-    this.todayOrders = this.getTodaysOrders();
+    this.todayBookings = [];
+    this.todayOrders = [];
     this.selectedCustomer = null;
     this.menu = this.createMenu(orders); 
     // console.log(this.menu)
@@ -40,26 +39,29 @@ class Hotel {
     this.todayBookings = this.bookings.filter(booking => booking.date === this.date).sort((a, b) => a.userID - b.userID);
     let namedBookings = this.todayBookings.map(booking => {
       let guest = this.customers.find(customer => customer.id === booking.userID);
+      let matchedRoom = this.rooms.find(room => room.number === booking.roomNumber);
       return {
         userID: booking.userID,
         guest: guest.name,
-        roomNumber: booking.roomNumber
+        roomNumber: booking.roomNumber,
+        cost: matchedRoom.costPerNight
       }
     });
-    console.log(this.todayBookings)
-    domUpdates.appendTodaysBookings(namedBookings);
+        domUpdates.appendTodaysBookings(namedBookings);
     // return todayBookings;
   }
 
   getCustomerById(id) {
     this.selectedCustomer = this.customers.find(customer => customer.id === id);
-    // include find by name
-    // error if not found
+    domUpdates.appendSelectedGuest(this.selectedCustomer);
   }
+
 
   addNewCustomer(name) {
     let added = new Customer(this.customers.length + 1, name);
     this.customers.push(added);
+    this.selectedCustomer = added;
+    domUpdates.appendSelectedGuest(this.selectedCustomer);
     return added;
   }
 
@@ -73,7 +75,6 @@ class Hotel {
   }
 
   getTotalRevenue(date) {
-    console.log(this.todayBookings)
     let bookingsTotal = this.todayBookings.reduce((total, booking) => {
       this.rooms.find(room => {
         if (room.number === booking.roomNumber) {
