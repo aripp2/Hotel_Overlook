@@ -7,7 +7,7 @@ import './css/base.scss';
 
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 // import './images/turing-logo.png'
-let date, today, hotel, rooms, bookings, orders, customers
+let date, today, hotel
 
 date = new Date().toISOString().replace('-', '/').split('T')[0].replace('-', '/');
 today = new Date().toString().split(' ').slice(0, 4).join(' ');
@@ -27,6 +27,7 @@ const createHotel = (date, rooms, bookings, roomServices, customers) => {
   $('#today').text(today);
   createMainTab();
   createGuestsTab();
+  domUpdates.appendMenu(hotel.menu);
 }
 
 const createMainTab = () => {
@@ -60,13 +61,11 @@ $(document).ready(() => {
   });
 
   $('#guest-search').on('change', () => {
-    // $('#find-guest-btn').prop('disabled', false);
     let id = $('#guest-search option:selected').val();
     id = parseInt(id);
-    // $('#find-guest-btn').on('click', () => {
-      hotel.getCustomerById(id);
-
-    // })
+    hotel.getCustomerById(id);
+    
+    // updateContentForSelecetedGuest(hotel.selectedCustomer)
   });
 
   $('#new-guest-input').on('change', () => {
@@ -80,6 +79,14 @@ $(document).ready(() => {
       domUpdates.makeGuestNames(hotel.customers);
     })
   })
+
+  const updateContentForSelecetedGuest = (guest) => {
+    // guest.selectedBookings.map(booking => {
+    //   return {
+
+    //   }
+    // })
+  }
 
 });
 

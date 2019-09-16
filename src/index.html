@@ -18,12 +18,12 @@
         <ul class="tabs-nav">
           <li><a href="#main">Main</a></li>
           <li><a href="#guest">Guest</a></<li> 
-          <li><a href="#bookings">Bookings</a></<li>  
-          <li><a href="#orders">Room Service Orders</a></li>
+          <li><a href="#rooms">Rooms</a></<li>  
+          <li><a href="#room-service">Room Service</a></li>
         </ul>
         <div class="tabs-content">
           <div id="main">
-            <section id="hotel-info"></section>
+            <aside id="hotel-info"></aside>
             <!-- chart?? -->
           <h4>Today's Bookings:</h4>
           <table class="todays-bookings">
@@ -32,9 +32,6 @@
               <th>Guest Name</th>
               <th>Room Number</th>
               <th>Nightly Cost</th>
-              <th>Cancel Booking</th>
-              <th>Change Booking</th>
-              <th>Add Room Service</th>
             </tr>
           </table>
           <h4>Today's Room Service Orders:</h4>
@@ -48,30 +45,20 @@
           </table>
           </div>
           <div id="guest">
-            <form id="guest-search">
-              <select class="guest-names">
-                <option>Select a Guest...</option>
-              </select>
-              <button id="find-guest-btn" disabled="true">Find Guest</button>
+            <aside>
+              <h4>Select a Guest:</h4>
+              <form id="guest-search">
+                <select class="guest-names">
+                  <option>Choose a Guest...</option>
+                </select>
+              </form>
+              <h4>Create a New Guest:</h4>
+              <form id="new-guest">
+                <input id="new-guest-input" type="text" placeholder="Enter New Guest's Name">
+                <button id="add-guest-btn" disabled="true">Add Guest</button>
             </form>
-            <form id="new-guest">
-              <input id="new-guest-input" type="text" placeholder="Enter New Guest's Name">
-              <button id="add-guest-btn" disabled="true">Add Guest</button>
-            </form>
-          </div>
-          <div id="bookings">
-            <h4>Today's Bookings:</h4>
-            <table class="todays-bookings-tab">
-              <tr>
-                <th>Guest ID</th>
-                <th>Guest Name</th>
-                <th>Room Number</th>
-                <th>Nightly Cost</th>
-                <th>Cancel Booking</th>
-                <th>Change Booking</th>
-                <th>Add Room Service</th>
-              </tr>
-            </table>
+            </aside>
+            <h4>Upcoming Bookings:</h4>
             <table class="guest-bookings">
               <tr>
                 <th>Date</th>
@@ -82,28 +69,66 @@
                 <th>Add Room Service</th>
               </tr>
             </table>
-          </div>
-          <div id="orders">
-            <h4>Today's Room Service Orders:</h4>
-            <table class="todays-orders-tab">
+            <h4>Past Bookings:</h4>
+            <table class="past-bookings">
               <tr>
-                <th>Guest ID</th>
-                <th>Guest Name</th>
-                <th>Food Item</th>
-                <th>Total Cost</th>
+                <th>Date</th>
+                <th>Room Number</th>
+                <th>Nightly Cost</th>
               </tr>
             </table>
+            <h4>Upcoming Orders:</h4>
             <table class="guest-orders">
               <tr>
                 <th>Date</th>
                 <th>Food Item</th>
                 <th>Total Cost</th>
+                <th></th>
+              </tr>
+            </table>
+            <h4>Past Orders:</h4>
+            <table class="past-orders">
+              <tr>
+                <th>Date</th>
+                <th>Food Item</th>
+                <th>Total Cost</th>
+                <th></th>
+              </tr>
+            </table>
+          </div>
+          <div id="rooms">
+            <aside>
+              <h4>Most Popular Booking Date: <span id="most-popular"></span></h4>
+              <h4>Day with most rooms available: <span id="most-available"></span></h4>
+              <h4>Select a date to see Available Rooms:</h4>
+              <input type="date" name="calendar" id="find-available">
+            </aside>
+            <h4>Available Rooms:</h4>
+            <table class="available-rooms">
+              <tr>
+                <th>Number</th>
+                <th>Type</th>
+                <th>Bed Size</th>
+                <th>Bidet</th>
+                <th>Cost</th>
+                <th>Book</th>
+              </tr>
+            </table>
+          </div>
+          <div id="room-service">
+            <h4>Room Service Menu:</h4>
+            <table class="menu">
+              <tr>
+                <th>Food Item</th>
+                <th>Price</th>
+                <th>Order Item</th>
               </tr>
             </table>
           </div>
         </div>
       </div>
     </main>
+
    
   </body>
 </html>

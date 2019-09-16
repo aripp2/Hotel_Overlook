@@ -7,12 +7,14 @@ class Customer {
   }
 
   findCustomerBookings(id, bookings) {
-    let customerBookings = bookings.filter(booking => booking.userID === id).sort((a, b) => a.date - b.date);
-    return customerBookings;
+    return bookings.filter(booking => booking.userID === id);
   }
+
   findCustomerOrders(id, roomServices) {
-    return roomServices.filter(order => order.userID === id).sort((a, b) => a.date - b.date);
+    return roomServices.filter(order => order.userID === id);
   }
+
+  // getGuest
 
 }
 

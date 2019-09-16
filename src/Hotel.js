@@ -19,50 +19,29 @@ class Hotel {
 
 // update tests
 
-
   getTodaysOrders() {
     this.todayOrders = this.orders.filter(order => order.date === this.date).sort((a, b) => a.userID - b.userID);
-    let namedOrders = this.todayOrders.map(order => {
-      let guest = this.customers.find(customer => customer.id === order.userID);
-      return {
-        userID: order.userID,
-        guest: guest.name,
-        food: order.food,
-        totalCost: order.totalCost
-      }
-    });
-    domUpdates.appendTodaysOrders(namedOrders);
+    domUpdates.appendTodaysOrders(this.todayOrders, this.customers);
     // return todayOrders;
   }
 
   getTodaysBookings() {
     this.todayBookings = this.bookings.filter(booking => booking.date === this.date).sort((a, b) => a.userID - b.userID);
-    let namedBookings = this.todayBookings.map(booking => {
-      let guest = this.customers.find(customer => customer.id === booking.userID);
-      let matchedRoom = this.rooms.find(room => room.number === booking.roomNumber);
-      return {
-        userID: booking.userID,
-        guest: guest.name,
-        roomNumber: booking.roomNumber,
-        cost: matchedRoom.costPerNight
-      }
-    });
-        domUpdates.appendTodaysBookings(namedBookings);
+    domUpdates.appendTodaysBookings(this.todayBookings, this.customers, this.rooms);
     // return todayBookings;
   }
 
   getCustomerById(id) {
     this.selectedCustomer = this.customers.find(customer => customer.id === id);
-    domUpdates.appendSelectedGuest(this.selectedCustomer);
+    domUpdates.appendSelectedGuest(this.selectedCustomer, this.rooms);
   }
 
 
   addNewCustomer(name) {
-    let added = new Customer(this.customers.length + 1, name);
-    this.customers.push(added);
-    this.selectedCustomer = added;
-    domUpdates.appendSelectedGuest(this.selectedCustomer);
-    return added;
+    this.selectedCustomer = new Customer(this.customers.length + 1, name);
+    this.customers.push(this.selectedCustomer);
+    domUpdates.appendSelectedGuest(this.selectedCustomer, this.rooms);
+    // return added;
   }
 
   getRoomsAvailable(date) {
