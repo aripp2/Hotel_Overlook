@@ -2,6 +2,7 @@
 <html lang="en-US">
   <head>
     <title>Hotel Overlook</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
   </head>
   <body>
     <section id="splash">
@@ -23,8 +24,12 @@
         </ul>
         <div class="tabs-content">
           <div id="main">
-            <aside id="hotel-info"></aside>
-            <!-- chart?? -->
+            <aside id="hotel-info">
+              <figure>
+                <h4>Today's Occupancy</h4>
+                <canvas id="occupancy" width="300px" height="300px"></canvas>
+              </figure>
+            </aside>
           <h4>Today's Bookings:</h4>
           <table class="todays-bookings">
             <tr>
@@ -106,6 +111,14 @@
               <h5 id="available-count"></h5>
               <h4>Select a date to see Available Rooms:</h4>
               <input type="date" name="calendar" id="find-available">
+              <h4>Filter Results by Room Type</h4>
+              <select class="room-type">
+                <option>Room Type...</option>
+                <option value="single room">Single Room</option>
+                <option value="junior suite">Junior Suite</option>
+                <option value="suite">Suite</option>
+                <option value="residential suite">Residential Suite</option>
+              </select>
             </aside>
             <h4>Available Rooms:</h4>
             <table class="available-rooms">
@@ -115,7 +128,6 @@
                 <th>Bed Size</th>
                 <th>Bidet</th>
                 <th>Cost</th>
-                <th>Book</th>
               </tr>
             </table>
           </div>

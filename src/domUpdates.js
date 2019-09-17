@@ -140,7 +140,6 @@ export default {
           <td>${bed}</td>
           <td>${room.bidet}</td>
           <td>$${room.costPerNight.toFixed(2).toLocaleString()}</td>
-          <td><button>Book</button></td>
         </tr>`
         )
     });

@@ -1,5 +1,6 @@
 // An example of how you import jQuery into a JS file if you use jQuery in that file
 import $ from 'jquery';
+import Chart from 'chart.js';
 import Hotel from '../src/Hotel';
 import domUpdates from '../src/domUpdates';
 
@@ -28,7 +29,7 @@ const createHotel = (date, rooms, bookings, roomServices, customers) => {
   createMainTab();
   createGuestsTab();
   createRoomsTab()
-  domUpdates.appendMenu(hotel.menu);
+  // domUpdates.appendMenu(hotel.menu);
 }
 
 const createMainTab = () => {
@@ -38,6 +39,7 @@ const createMainTab = () => {
   let available = hotel.rooms.length - hotel.todayBookings.length;
   let percent = hotel.getPercentOccupancy(date)
   domUpdates.appendHotelInfo(revenue, available, percent);
+  appendPercentChart();
 }
 
 const createGuestsTab = () => {
@@ -49,6 +51,32 @@ const createRoomsTab = () => {
   hotel.getMostPopularDays();
   hotel.getMostAvailableDays();
 }
+
+const appendPercentChart = () => { 
+  const percentChart = new Chart($('#occupancy'), {
+    type: 'doughnut',
+    data: {
+      labels: ['Occupied', 'Avaialble'],
+      datasets: [{
+        label: 'Today\'s Occupancy',
+        data: [hotel.getPercentOccupancy(date), 100 - hotel.getPercentOccupancy(date)],
+        backgroundColor: [
+          '#494850',
+          '#D8D8F6'
+        ],
+        // borderColor: [
+        //   '#2C2C34',
+        //   '#2C2C34'
+        // ]
+      }]
+    },
+    options: {
+      cutoutPercentage: 60,
+      responsive: false
+    }
+  })
+}
+
 
 $(document).ready(() => {
   // $('#page').hide();
