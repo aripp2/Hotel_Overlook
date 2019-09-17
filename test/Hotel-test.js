@@ -121,8 +121,8 @@ describe('Hotel', () => {
 
   it('should be able to get total bookings per day', () => {
     expect(hotel.getBookingsPerDay()).to.eql({
+      "2019/08/27": 6,
       "2019/09/22": 3,
-      "2019/09/27": 6,
       "2019/10/01": 6,
       "2019/10/05": 2,
       "2019/10/18": 2
@@ -130,7 +130,7 @@ describe('Hotel', () => {
   });
 
   it('should find the most popular booking day', () => {
-    expect(hotel.getMostPopularDays()).to.eql({days: ["2019/09/27", "2019/10/01"], num: 6});
+    expect(hotel.getMostPopularDays()).to.eql({days: ["2019/08/27", "2019/10/01"], num: 6});
     expect(domUpdates.appendPopularDays).to.have.been.called(1);
   });
 

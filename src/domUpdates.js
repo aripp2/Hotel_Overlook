@@ -118,8 +118,8 @@ export default {
     });
   },
 
-  appendMostAvailableDays(days) {
-    $('#available-count').text(`With ${days.num} rooms still available`);
+  appendMostAvailableDays(days, rooms) {
+    $('#available-count').text(`With ${rooms.length - days.num} rooms still available`);
     days.days.forEach(day => {
       let fixedDate = this.reformatDate(day);
       $('#most-available').append(

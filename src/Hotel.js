@@ -102,7 +102,8 @@ class Hotel {
   }
 
   getBookingsPerDay() {
-    return this.bookings.reduce((days, booking) => {
+    let sortedBookings = this.bookings.sort((a, b) => Date.parse(a.date) - Date.parse(b.date));
+    return sortedBookings.reduce((days, booking) => {
       if (!days[booking.date]) {
         days[booking.date] = 1;
       } else {
@@ -114,12 +115,12 @@ class Hotel {
 
   getMostPopularDays() {
     let dailyTotals = this.getBookingsPerDay();
-    return Object.keys(dailyTotals).reduce((total, day) => {
+    let mostBookings = Object.keys(dailyTotals).reduce((total, day) => {
       if (dailyTotals[day] > total.num) {
         total.days = [day];
         total.num = dailyTotals[day];
       } else if (dailyTotals[day] === total.num) {
-        total.days.unshift(day);
+        total.days.push(day);
       }
       return total;
     }, {days: [], num: 0});
@@ -127,18 +128,31 @@ class Hotel {
     return mostBookings;
   }
 
+  getFutureBookings() {
+    let futureBookings = this.bookings.filter(booking => Date.parse(booking.date) >= Date.parse(this.date));
+    let sortedFuture = futureBookings.sort((a, b) => Date.parse(a.date) - Date.parse(b.date));
+    return sortedFuture.reduce((days, booking) => {
+      if (!days[booking.date]) {
+        days[booking.date] = 1;
+      } else {
+        days[booking.date] ++;
+      }
+      return days;
+    }, {}); 
+  }
+
   getMostAvailableDays() {
-    let dailyTotals = this.getBookingsPerDay();
+    let dailyTotals = this.getFutureBookings();
     let leastBookings = Object.keys(dailyTotals).reduce((total, day) => {
       if (dailyTotals[day] < total.num) {
         total.days = [day];
         total.num = dailyTotals[day];
       } else if (dailyTotals[day] === total.num) {
-        total.days.unshift(day);
+        total.days.push(day);
       } 
       return total;
     }, {days: [], num: this.bookings.length});
-    domUpdates.appendMostAvailableDays(leastBookings);
+    domUpdates.appendMostAvailableDays(leastBookings, this.rooms);
     return leastBookings;
   }
 
