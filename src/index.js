@@ -47,7 +47,7 @@ const createGuestsTab = () => {
 }
 
 const createRoomsTab = () => {
-  hotel.getRoomsAvailable(date);
+  hotel.getFilteredRooms('all', date);
   hotel.getMostPopularDays();
   hotel.getMostAvailableDays();
 }
@@ -112,6 +112,18 @@ $(document).ready(() => {
       $('.guest-names').empty('option');
       $('.guest-names').append(`<option>Select a Guest...</option>`)
       domUpdates.makeGuestNames(hotel.customers);
+    })
+  })
+
+  $('#room-type').on('change', () => {
+      let rmType = $('#room-type option:selected').val();
+      console.log('room', rmType)
+      let searchDate = $('#find-available').val();
+      searchDate = searchDate.replace('-', '/').replace('-', '/');
+      console.log('date', searchDate)
+    $('#filter-rooms').click((e) => {
+      e.preventDefault();
+      hotel.getFilteredRooms(rmType, date);
     })
   })
 

@@ -84,6 +84,10 @@ describe('Hotel', () => {
   it('should be able to get rooms available for date', () => {
     hotel.getTodaysBookings();
     expect(hotel.getRoomsAvailable(date).length).to.equal(17);
+  });
+
+  it('should be able to filter rooms by type', () => {
+    expect(hotel.getFilteredRooms('suite', date).length).to.equal(5);
     expect(domUpdates.appendAvailableRooms).to.have.been.called(1);
   });
 

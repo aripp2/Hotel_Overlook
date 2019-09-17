@@ -51,8 +51,20 @@ class Hotel {
         return room;
       }
     });
-    domUpdates.appendAvailableRooms(available);
     return available;
+  }
+
+  getFilteredRooms(type, date) {
+    if (type === 'all') {
+      domUpdates.appendAvailableRooms(this.getRoomsAvailable(date));
+    } else {
+      let available = this.getRoomsAvailable(date);
+      let filteredRooms = available.filter(room => {
+      return room.roomType.toUpperCase() === type.toUpperCase();
+    });
+    domUpdates.appendAvailableRooms(filteredRooms);
+    return filteredRooms;
+    }
   }
 
   getTotalRevenue(date) {
@@ -84,8 +96,10 @@ class Hotel {
   }
 
   bookRoom(id, day, rmNum) {
-    // let availableRooms = getRoomsAvailable(day);
-    this.bookings.push(new Booking(id, day, rmNum));
+    let addedBooking = new Booking(id, day, rmNum)
+    this.bookings.push(addedBooking);
+    //add method to customer?
+    // this.selectedCustomer.selectedBookings.push(addedBooking);
   }
 
   createMenu(orders) {

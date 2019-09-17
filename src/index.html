@@ -109,16 +109,20 @@
               <h4>Days with most rooms available:</h4>
               <ul id="most-available"></ul>
               <h5 id="available-count"></h5>
-              <h4>Select a date to see Available Rooms:</h4>
-              <input type="date" name="calendar" id="find-available">
-              <h4>Filter Results by Room Type</h4>
-              <select class="room-type">
-                <option>Room Type...</option>
-                <option value="single room">Single Room</option>
-                <option value="junior suite">Junior Suite</option>
-                <option value="suite">Suite</option>
-                <option value="residential suite">Residential Suite</option>
-              </select>
+                <h4>Select a date to see Available Rooms:</h4>
+                <input type="date" name="calendar" id="find-available">
+              <form id="find-rooms">
+                <h4>Filter Results by Room Type</h4>
+                <select id="room-type">
+                  <option>Room Type...</option>
+                  <option value="single room">Single Room</option>
+                  <option value="junior suite">Junior Suite</option>
+                  <option value="suite">Suite</option>
+                  <option value="residential suite">Residential Suite</option>
+                  <option value="all">All Room Types</option>
+                </select>
+                <button id="filter-rooms">Search Available Rooms</button>
+              </form>
             </aside>
             <h4>Available Rooms:</h4>
             <table class="available-rooms">

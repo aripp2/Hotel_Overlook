@@ -1,5 +1,4 @@
 import $ from 'jquery';
-// $makeMoney = .toFixed(2).toLocaleString();
 
 export default {
 
@@ -12,8 +11,7 @@ export default {
     $('#hotel-info').append(`
       <h4>Total Revenue Today: $${revenue.toFixed(2).toLocaleString()}</h4>
       <h4>Number of Rooms Available Today: ${available}</h4>
-      <h4>${percent}% Occupancy</h4>
-    `)
+      <h4>${percent}% Occupancy</h4>`)
   },
 
   appendTodaysBookings(bookings, guests, rooms) {
@@ -129,7 +127,7 @@ export default {
   },
 
   appendAvailableRooms(rooms) {
-    // sort by???
+    $('.room-details').remove();
     rooms.forEach(room => {
       let type = room.roomType.split(' ').map(word => word[0].toUpperCase() + word.substr(1).toLowerCase()).join(' ');
       let bed = room.bedSize.charAt(0).toUpperCase() + room.bedSize.slice(1)
@@ -143,14 +141,6 @@ export default {
         </tr>`
         )
     });
-  },
-
-  showAvailableRoomsByType(type, rooms) {
-    let filteredRooms = rooms.filter(room => {
-      return room.roomType.toUpperCase() === type.toUpperCase();
-    });
-    $('.room-details').remove();
-    this.appendAvailableRooms(filteredRooms);
   },
 
   appendMenu(menu) {
