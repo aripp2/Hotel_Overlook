@@ -1,10 +1,16 @@
 import $ from 'jquery';
+// $makeMoney = .toFixed(2).toLocaleString();
 
 export default {
 
+  reformatDate(date) {
+    let fixedDate = date.split('/');
+    return fixedDate[1] + '/' + fixedDate[2] + '/' + fixedDate[0];
+  },
+
   appendHotelInfo(revenue, available, percent) {
     $('#hotel-info').append(`
-      <h4>Total Revenue Today: $${revenue}</h4>
+      <h4>Total Revenue Today: $${revenue.toFixed(2).toLocaleString()}</h4>
       <h4>Number of Rooms Available Today: ${available}</h4>
       <h4>${percent}% Occupancy</h4>
     `)
@@ -19,7 +25,7 @@ export default {
         <td>${booking.userID}</td>
         <td>${name}</td>
         <td>${booking.roomNumber}</td>
-        <td>${cost}</td>
+        <td>$${cost.toFixed(2).toLocaleString()}</td>
       </tr>`);
     })
   },
@@ -32,7 +38,7 @@ export default {
         <td>${order.userID}</td>
         <td>${name}</td>
         <td>${order.food}</td>
-        <td>$${order.totalCost}</td>
+        <td>$${order.totalCost.toFixed(2).toLocaleString()}</td>
       </tr>`);
     })
   },
@@ -44,38 +50,61 @@ export default {
     });
   },
 
-  appendSelectedGuest(guest, rooms) {
+  appendSelectedGuest(guest, rooms, today) {
+    $('.guest-data').remove();
     $('#selected-guest').text(guest.name);
-    this.appendGuestBookings(guest, rooms);
-    this.appendGuestOrders(guest);
+    this.appendGuestBookings(guest, rooms, today);
+    this.appendGuestOrders(guest, today);
   },
 
-  appendGuestBookings(guest, rooms) {
+  appendGuestBookings(guest, rooms, today) {
     let updatedGuest = guest.selectedBookings.map(booking => {
         booking.cost = rooms.find(room => room.number === booking.roomNumber).costPerNight;
         return booking;
     });
-    updatedGuest.forEach(booking => {
+    let sortedBookings = updatedGuest.sort((a, b) => Date.parse(a.date) - Date.parse(b.date));
+    sortedBookings.forEach(booking => {
+      let day = this.reformatDate(booking.date);
+      if (Date.parse(today) <= Date.parse(booking.date)) {
       $('.guest-bookings').append(
-      `<tr>
-        <td>${booking.date}</td> 
+      `<tr class="guest-data">
+        <td>${day}</td> 
         <td>${booking.roomNumber}</td>
-        <td>${booking.cost}</td>
+        <td>$${booking.cost.toFixed(2).toLocaleString()}</td>
         <td><button class="cancel-booking-btn">Cancel</button></td>
         <td><button class="change-booking-btn">Change</button></td>
         <td><button class="add-food-btn">Order</button></td>
       </tr>`);
+    } else {
+      $('.past-bookings').append(
+        `<tr class="guest-data">
+          <td>${day}</td> 
+          <td>${booking.roomNumber}</td>
+          <td>$${booking.cost.toFixed(2).toLocaleString()}</td>
+        </tr>`)
+      }
     })
   },
 
-  appendGuestOrders(guest) {
-    guest.selectedOrders.forEach(order => {
+  appendGuestOrders(guest, today) {
+    let sortedOrders = guest.selectedOrders.sort((a, b) => Date.parse(a.date) - Date.parse(b.date));
+    sortedOrders.forEach(order => {
+      let day = this.reformatDate(order.date);
+      if (Date.parse(today) <= Date.parse(order.date)) {
       $('.guest-orders').append(
-      `<tr>
-        <td>${order.date}</td>
+      `<tr class="guest-data">
+        <td>${day}</td>
         <td>${order.food}</td>
-        <td>$${order.totalCost}</td>
+        <td>$${order.totalCost.toFixed(2).toLocaleString()}</td>
       </tr>`)
+    } else {
+      $('.past-orders').append(
+      `<tr class="guest-data">
+        <td>${day}</td>
+        <td>${order.food}</td>
+        <td>$${order.totalCost.toFixed(2).toLocaleString()}</td>
+      </tr>`)
+    }
     })
   },
 
@@ -84,7 +113,7 @@ export default {
       $('.menu').append(
         `<tr>
           <td>${item.food}</td>
-          <td>${item.price}</td>
+          <td>$${item.price.toFixed(2).toLocaleString()}</td>
           <td><button>Order</button></td>
         </tr>`)
     })

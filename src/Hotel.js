@@ -33,14 +33,14 @@ class Hotel {
 
   getCustomerById(id) {
     this.selectedCustomer = this.customers.find(customer => customer.id === id);
-    domUpdates.appendSelectedGuest(this.selectedCustomer, this.rooms);
+    domUpdates.appendSelectedGuest(this.selectedCustomer, this.rooms, this.date);
   }
 
 
   addNewCustomer(name) {
     this.selectedCustomer = new Customer(this.customers.length + 1, name);
     this.customers.push(this.selectedCustomer);
-    domUpdates.appendSelectedGuest(this.selectedCustomer, this.rooms);
+    domUpdates.appendSelectedGuest(this.selectedCustomer, this.rooms, this.date);
     // return added;
   }
 
