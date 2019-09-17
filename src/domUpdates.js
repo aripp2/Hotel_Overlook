@@ -119,5 +119,30 @@ export default {
     })
   },
 
+  appendAvailableRooms(rooms) {
+    // sort by???
+    rooms.forEach(room => {
+      let type = room.roomType.split(' ').map(word => word[0].toUpperCase() + word.substr(1).toLowerCase()).join(' ');
+      let bed = room.bedSize.charAt(0).toUpperCase() + room.bedSize.slice(1)
+      $('.available-rooms').append(
+        `<tr class="room-details">
+          <td>${room.number}</td>
+          <td>${type}</td>
+          <td>${bed}</td>
+          <td>${room.bidet}</td>
+          <td>$${room.costPerNight.toFixed(2).toLocaleString()}</td>
+          <td><button>Book</button></td>
+        </tr>`
+        )
+    });
+  },
+
+  showAvailableRoomsByType(type, rooms) {
+    let filteredRooms = rooms.filter(room => {
+      return room.roomType.toUpperCase() === type.toUpperCase();
+    });
+    $('.room-details').remove();
+    this.appendAvailableRooms(filteredRooms);
+  },
 
 };

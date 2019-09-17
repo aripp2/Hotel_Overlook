@@ -27,6 +27,7 @@ const createHotel = (date, rooms, bookings, roomServices, customers) => {
   $('#today').text(today);
   createMainTab();
   createGuestsTab();
+  createRoomsTab()
   domUpdates.appendMenu(hotel.menu);
 }
 
@@ -41,6 +42,10 @@ const createMainTab = () => {
 
 const createGuestsTab = () => {
   domUpdates.makeGuestNames(hotel.customers);
+}
+
+const createRoomsTab = () => {
+  hotel.getRoomsAvailable(date);
 }
 
 $(document).ready(() => {

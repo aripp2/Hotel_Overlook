@@ -38,7 +38,7 @@ class Hotel {
 
 
   addNewCustomer(name) {
-    this.selectedCustomer = new Customer(this.customers.length + 1, name);
+    this.selectedCustomer = new Customer(this.customers.length + 1, name, this.bookings, this.orders);
     this.customers.push(this.selectedCustomer);
     domUpdates.appendSelectedGuest(this.selectedCustomer, this.rooms, this.date);
     // return added;
@@ -46,11 +46,13 @@ class Hotel {
 
   getRoomsAvailable(date) {
     let bookedRooms = this.todayBookings.map(booking => booking.roomNumber);
-    return this.rooms.filter(room => {
+    let available = this.rooms.filter(room => {
       if (!bookedRooms.includes(room.number)) {
         return room;
       }
     });
+    domUpdates.appendAvailableRooms(available);
+    return available;
   }
 
   getTotalRevenue(date) {
@@ -99,6 +101,16 @@ class Hotel {
     this.orders.push(new Order(id, date, food, cost));
   }
 
+  getBookingsPerDay() {
+    return this.bookings.reduce((days, booking) => {
+      if (!days[booking.date]) {
+        days[booking.date] = 1;
+      } else {
+        days[booking.date] +=1
+      }
+      return days;
+    }, {});
+  }
 
 
 
