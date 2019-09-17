@@ -130,19 +130,16 @@ $(document).ready(() => {
 
   $('#rooms').click((e) => {
     if (e.target.classList.contains('book-it')) {
-      // console.log($(this))
-      // let room = $(this).attr('id');
+      let room = e.target.id;
       let id = hotel.selectedCustomer.id;
       let searchDate = $('#find-available').val();
-      searchDate = searchDate.replace('-', '/').replace('-', '/');
-      let room = $(this).closest('td')
-      // .find('td:eq(0)').val();
-      
-      // room = parseInt(room);
-      console.log('picked', room)
+      searchDate = searchDate.replace(/-/g, "/");
+      room = parseInt(room);
       hotel.bookRoom(id, searchDate, room);
       //update main
-      domUpdates.appendSelectedGuest(hotel.selectedCustomer, hotel.rooms, date)
+      // alert booking made?
+      hotel.getFilteredRooms('all', date);
+      domUpdates.appendSelectedGuest(hotel.selectedCustomer, hotel.rooms, date);
 
     }
   })
