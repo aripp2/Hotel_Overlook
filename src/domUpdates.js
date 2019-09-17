@@ -51,6 +51,8 @@ export default {
   appendSelectedGuest(guest, rooms, today) {
     $('.guest-data').remove();
     $('#selected-guest').text(guest.name);
+    $('.guest-selected').show();
+    $('#todays-orders-tab').hide();
     this.appendGuestBookings(guest, rooms, today);
     this.appendGuestOrders(guest, today);
   },
@@ -133,11 +135,12 @@ export default {
       let bed = room.bedSize.charAt(0).toUpperCase() + room.bedSize.slice(1)
       $('.available-rooms').append(
         `<tr class="room-details">
-          <td>${room.number}</td>
+          <td class="rmNum">${room.number}</td>
           <td>${type}</td>
           <td>${bed}</td>
           <td>${room.bidet}</td>
           <td>$${room.costPerNight.toFixed(2).toLocaleString()}</td>
+          <td class="book guest-selected" hidden><button class="book-it" id="${room.number}">Book it!</button></td>
         </tr>`
         )
     });

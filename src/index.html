@@ -30,8 +30,8 @@
                 <canvas id="occupancy" width="300px" height="300px"></canvas>
               </figure>
             </aside>
-          <h4>Today's Bookings:</h4>
           <table class="todays-bookings">
+            <h4>Today's Bookings:</h4>
             <tr>
               <th>Guest ID</th>
               <th>Guest Name</th>
@@ -39,8 +39,8 @@
               <th>Nightly Cost</th>
             </tr>
           </table>
-          <h4>Today's Room Service Orders:</h4>
           <table class="todays-orders">
+            <h4>Today's Room Service Orders:</h4>
             <tr>
               <th>Guest ID</th>
               <th>Guest Name</th>
@@ -51,20 +51,20 @@
           </div>
           <div id="guest">
             <aside>
-              <h4>Select a Guest:</h4>
               <form id="guest-search">
+                <h4>Select a Guest:</h4>
                 <select class="guest-names">
                   <option>Choose a Guest...</option>
                 </select>
               </form>
-              <h4>Create a New Guest:</h4>
               <form id="new-guest">
+                <h4>Create a New Guest:</h4>
                 <input id="new-guest-input" type="text" placeholder="Enter New Guest's Name">
                 <button id="add-guest-btn" disabled="true">Add Guest</button>
-            </form>
+              </form>
             </aside>
-            <h4>Upcoming Bookings:</h4>
-            <table class="guest-bookings">
+            <table class="guest-bookings guest-selected">
+              <h4 class="guest-selected">Upcoming Bookings:</h4>
               <tr>
                 <th>Date</th>
                 <th>Room Number</th>
@@ -74,16 +74,16 @@
                 <th>Add Room Service</th>
               </tr>
             </table>
-            <h4>Past Bookings:</h4>
-            <table class="past-bookings">
+            <table class="past-bookings guest-selected">
+              <h4 class="guest-selected">Past Bookings:</h4>
               <tr>
                 <th>Date</th>
                 <th>Room Number</th>
                 <th>Nightly Cost</th>
               </tr>
             </table>
-            <h4>Upcoming Orders:</h4>
-            <table class="guest-orders">
+            <table class="guest-orders guest-selected">
+              <h4 class="guest-selected">Upcoming Orders:</h4>
               <tr>
                 <th>Date</th>
                 <th>Food Item</th>
@@ -91,8 +91,8 @@
                 <th></th>
               </tr>
             </table>
-            <h4>Past Orders:</h4>
-            <table class="past-orders">
+            <table class="past-orders guest-selected">
+              <h4 class="guest-selected">Past Orders:</h4>
               <tr>
                 <th>Date</th>
                 <th>Food Item</th>
@@ -124,26 +124,52 @@
                 <button id="filter-rooms">Search Available Rooms</button>
               </form>
             </aside>
-            <h4>Available Rooms:</h4>
             <table class="available-rooms">
+              <h4>Available Rooms:</h4>
               <tr>
                 <th>Number</th>
                 <th>Type</th>
                 <th>Bed Size</th>
                 <th>Bidet</th>
                 <th>Cost</th>
+                <th class="book guest-selected">Reserve</th>
               </tr>
             </table>
           </div>
           <div id="room-service">
-            <h4>Room Service Menu:</h4>
-            <table class="menu">
-              <tr>
-                <th>Food Item</th>
-                <th>Price</th>
-                <th>Order Item</th>
-              </tr>
+            <section id= "todays-orders-tab">
+              <table class="todays-orders">
+                <h4>Today's Room Service Orders:</h4>
+                <tr>
+                  <th>Guest ID</th>
+                  <th>Guest Name</th>
+                  <th>Food Item</th>
+                  <th>Total Cost</th>
+                </tr>
+              </table>
+            </section>
+            <!-- <section > -->
+              <table class="guest-orders guest-selected">
+                <h4 class="guest-selected">Upcoming Orders:</h4>
+                <tr>
+                  <th>Date</th>
+                  <th>Food Item</th>
+                  <th>Total Cost</th>
+                  <th></th>
+                </tr>
             </table>
+            <!-- </section> -->
+            <section id="menu" hidden>
+              <table class="menu">
+                <h4>Room Service Menu:</h4>
+                <tr>
+                  <th>Food Item</th>
+                  <th>Price</th>
+                  <th>Order Item</th>
+                </tr>
+              </table>
+            </section>
+
           </div>
         </div>
       </div>

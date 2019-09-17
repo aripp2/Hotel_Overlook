@@ -13,7 +13,6 @@ import domUpdates from '../src/domUpdates';
 chai.spy.on(domUpdates, 
   ['appendTodaysOrders',
   'appendTodaysBookings',
-  'appendSelectedGuest',
   'appendAvailableRooms',
   'appendPopularDays',
   'appendMostAvailableDays'], () => {});
@@ -66,7 +65,7 @@ describe('Hotel', () => {
   it('should be able to get customer info by their id', () => {
     hotel.getCustomerById(10);
     expect(hotel.selectedCustomer.name).to.equal('Chyna Gulgowski');
-    expect(domUpdates.appendSelectedGuest).to.have.been.called(1);
+    // expect(domUpdates.appendSelectedGuest).to.have.been.called(1);
   });
 
   it('should be able to add a new customer', () => {
@@ -78,7 +77,7 @@ describe('Hotel', () => {
       selectedOrders: []
     });
     expect(hotel.customers.length).to.equal(11);
-    expect(domUpdates.appendSelectedGuest).to.have.been.called(2);
+    // expect(domUpdates.appendSelectedGuest).to.have.been.called(2);
   });
 
   it('should be able to get rooms available for date', () => {

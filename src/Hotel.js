@@ -33,14 +33,14 @@ class Hotel {
 
   getCustomerById(id) {
     this.selectedCustomer = this.customers.find(customer => customer.id === id);
-    domUpdates.appendSelectedGuest(this.selectedCustomer, this.rooms, this.date);
+    // domUpdates.appendSelectedGuest(this.selectedCustomer, this.rooms, this.date);
   }
 
 
   addNewCustomer(name) {
     this.selectedCustomer = new Customer(this.customers.length + 1, name, this.bookings, this.orders);
     this.customers.push(this.selectedCustomer);
-    domUpdates.appendSelectedGuest(this.selectedCustomer, this.rooms, this.date);
+    // domUpdates.appendSelectedGuest(this.selectedCustomer, this.rooms, this.date);
     // return added;
   }
 
@@ -99,7 +99,7 @@ class Hotel {
     let addedBooking = new Booking(id, day, rmNum)
     this.bookings.push(addedBooking);
     //add method to customer?
-    // this.selectedCustomer.selectedBookings.push(addedBooking);
+    this.selectedCustomer.selectedBookings.push(addedBooking);
   }
 
   createMenu(orders) {

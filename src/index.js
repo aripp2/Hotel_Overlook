@@ -80,6 +80,7 @@ const appendPercentChart = () => {
 
 $(document).ready(() => {
   // $('#page').hide();
+  $('.guest-selected').hide();
   
   // Show the first tab by default
   $('.tabs-content div').hide();
@@ -99,8 +100,7 @@ $(document).ready(() => {
     let id = $('#guest-search option:selected').val();
     id = parseInt(id);
     hotel.getCustomerById(id);
-    
-    // updateContentForSelecetedGuest(hotel.selectedCustomer)
+    domUpdates.appendSelectedGuest(hotel.selectedCustomer, hotel.rooms, date);
   });
 
   $('#new-guest-input').on('change', () => {
@@ -112,6 +112,7 @@ $(document).ready(() => {
       $('.guest-names').empty('option');
       $('.guest-names').append(`<option>Select a Guest...</option>`)
       domUpdates.makeGuestNames(hotel.customers);
+      domUpdates.appendSelectedGuest(hotel.selectedCustomer, hotel.rooms, date);
     })
   })
 
@@ -127,13 +128,25 @@ $(document).ready(() => {
     })
   })
 
-  const updateContentForSelecetedGuest = (guest) => {
-    // guest.selectedBookings.map(booking => {
-    //   return {
+  $('#rooms').click((e) => {
+    if (e.target.classList.contains('book-it')) {
+      // console.log($(this))
+      // let room = $(this).attr('id');
+      let id = hotel.selectedCustomer.id;
+      let searchDate = $('#find-available').val();
+      searchDate = searchDate.replace('-', '/').replace('-', '/');
+      let room = $(this).closest('td')
+      // .find('td:eq(0)').val();
+      
+      // room = parseInt(room);
+      console.log('picked', room)
+      hotel.bookRoom(id, searchDate, room);
+      //update main
+      domUpdates.appendSelectedGuest(hotel.selectedCustomer, hotel.rooms, date)
 
-    //   }
-    // })
-  }
+    }
+  })
+
 
 });
 
