@@ -108,15 +108,24 @@ export default {
     })
   },
 
-  appendMenu(menu) {
-    menu.forEach(item => {
-      $('.menu').append(
-        `<tr>
-          <td>${item.food}</td>
-          <td>$${item.price.toFixed(2).toLocaleString()}</td>
-          <td><button>Order</button></td>
-        </tr>`)
-    })
+  appendPopularDays(days) {
+    $('#popular-count').text(`With ${days.num} bookings`);
+    days.days.forEach(day => {
+      let fixedDate = this.reformatDate(day);
+      $('#popular-dates').append(
+        `<li>${fixedDate}</li>`
+        )
+    });
+  },
+
+  appendMostAvailableDays(days) {
+    $('#available-count').text(`With ${days.num} rooms still available`);
+    days.days.forEach(day => {
+      let fixedDate = this.reformatDate(day);
+      $('#most-available').append(
+        `<li>${fixedDate}</li>`
+        )
+    });
   },
 
   appendAvailableRooms(rooms) {
@@ -143,6 +152,17 @@ export default {
     });
     $('.room-details').remove();
     this.appendAvailableRooms(filteredRooms);
+  },
+
+  appendMenu(menu) {
+    menu.forEach(item => {
+      $('.menu').append(
+        `<tr>
+          <td>${item.food}</td>
+          <td>$${item.price.toFixed(2).toLocaleString()}</td>
+          <td><button>Order</button></td>
+        </tr>`)
+    })
   },
 
 };

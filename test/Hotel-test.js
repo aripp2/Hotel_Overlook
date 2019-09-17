@@ -14,7 +14,9 @@ chai.spy.on(domUpdates,
   ['appendTodaysOrders',
   'appendTodaysBookings',
   'appendSelectedGuest',
-  'appendAvailableRooms'], () => {});
+  'appendAvailableRooms',
+  'appendPopularDays',
+  'appendMostAvailableDays'], () => {});
 
 describe('Hotel', () => {
   let date, hotel;
@@ -98,7 +100,7 @@ describe('Hotel', () => {
 
   it('should be able to unbook a room', () => {
     expect(hotel.bookings.length).to.equal(20);
-    hotel.unbookRoom({ userID: 4, date: "2019/09/28", roomNumber: 13});
+    hotel.unbookRoom({ userID: 4, date: "2019/10/18", roomNumber: 13});
     expect(hotel.bookings.length).to.equal(19);
   });
 
@@ -118,7 +120,23 @@ describe('Hotel', () => {
   });
 
   it('should be able to get total bookings per day', () => {
-    // expect(hotel.getBookingsPerDay()).to.eql({})
+    expect(hotel.getBookingsPerDay()).to.eql({
+      "2019/09/22": 3,
+      "2019/09/27": 6,
+      "2019/10/01": 6,
+      "2019/10/05": 2,
+      "2019/10/18": 2
+    })
+  });
+
+  it('should find the most popular booking day', () => {
+    expect(hotel.getMostPopularDays()).to.eql({days: ["2019/09/27", "2019/10/01"], num: 6});
+    expect(domUpdates.appendPopularDays).to.have.been.called(1);
+  });
+
+  it('should find the day with most rooms available', () => {
+    expect(hotel.getMostAvailableDays()).to.eql({days: ["2019/10/05", "2019/10/18"], num: 2});
+    expect(domUpdates.appendMostAvailableDays).to.have.been.called(1);
   });
 
 

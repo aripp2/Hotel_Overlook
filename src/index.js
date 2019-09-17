@@ -46,6 +46,8 @@ const createGuestsTab = () => {
 
 const createRoomsTab = () => {
   hotel.getRoomsAvailable(date);
+  hotel.getMostPopularDays();
+  hotel.getMostAvailableDays();
 }
 
 $(document).ready(() => {

@@ -106,10 +106,40 @@ class Hotel {
       if (!days[booking.date]) {
         days[booking.date] = 1;
       } else {
-        days[booking.date] +=1
+        days[booking.date] ++;
       }
       return days;
     }, {});
+  }
+
+  getMostPopularDays() {
+    let dailyTotals = this.getBookingsPerDay();
+    return Object.keys(dailyTotals).reduce((total, day) => {
+      if (dailyTotals[day] > total.num) {
+        total.days = [day];
+        total.num = dailyTotals[day];
+      } else if (dailyTotals[day] === total.num) {
+        total.days.unshift(day);
+      }
+      return total;
+    }, {days: [], num: 0});
+    domUpdates.appendPopularDays(mostBookings);
+    return mostBookings;
+  }
+
+  getMostAvailableDays() {
+    let dailyTotals = this.getBookingsPerDay();
+    let leastBookings = Object.keys(dailyTotals).reduce((total, day) => {
+      if (dailyTotals[day] < total.num) {
+        total.days = [day];
+        total.num = dailyTotals[day];
+      } else if (dailyTotals[day] === total.num) {
+        total.days.unshift(day);
+      } 
+      return total;
+    }, {days: [], num: this.bookings.length});
+    domUpdates.appendMostAvailableDays(leastBookings);
+    return leastBookings;
   }
 
 
