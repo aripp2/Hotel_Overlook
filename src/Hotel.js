@@ -1,37 +1,33 @@
-import Customer from '../src/Customer';
+import Guest from '../src/Guest';
 import Booking from '../src/Booking';
 import Order from '../src/Order';
 import domUpdates from '../src/domUpdates';
   
 class Hotel {
-  constructor(date, rooms, bookings, orders, customers) {
+  constructor(date, rooms, bookings, orders, guests) {
     this.date = date;
     this.rooms = rooms;
     this.bookings = bookings.map(booking => new Booking(booking.userID, booking.date, booking.roomNumber));
     this.orders = orders.map(order => new Order(order.userID, order.date, order.food, order.totalCost));
-    this.customers = customers.map(customer => new Customer(customer.id, customer.name, this.bookings, this.orders));
+    this.guests = guests.map(guest => new Guest(guest.id, guest.name, this.bookings, this.orders));
     this.todayBookings = [];
     this.todayOrders = [];
-    this.selectedCustomer = null;
-    this.menu = this.createMenu(orders); 
+    this.selectedGuest = null;
+    this.menu = this.createMenu(); 
   }
-
-// update tests
 
   getTodaysOrders() {
     this.todayOrders = this.orders.filter(order => order.date === this.date).sort((a, b) => a.userID - b.userID);
-    domUpdates.appendTodaysOrders(this.todayOrders, this.customers);
-    // return todayOrders;
+    domUpdates.appendTodaysOrders(this.todayOrders, this.guests);
   }
 
   getTodaysBookings() {
     this.todayBookings = this.bookings.filter(booking => booking.date === this.date).sort((a, b) => a.userID - b.userID);
-    domUpdates.appendTodaysBookings(this.todayBookings, this.customers, this.rooms);
-    // return todayBookings;
+    domUpdates.appendTodaysBookings(this.todayBookings, this.guests, this.rooms);
   }
 
-  getCustomerById(id) {
-    this.selectedCustomer = this.customers.find(customer => customer.id === id);
+  getGuestById(id) {
+    this.selectedGuest = this.guests.find(guest => guest.id === id);
   }
 
   getGuestBookingsTotalToday(id, date) {
@@ -45,12 +41,12 @@ class Hotel {
   }
 
   getGuestOrdersTotalToday(id, date) {
-    return +(this.orders.reduce((bill2, order) => {
+    return +(this.orders.reduce((bill, order) => {
       if (order.date === date && order.userID === id) {
-        bill2 += order.totalCost;
+        bill += order.totalCost;
       }
-      return bill2;
-    },0)).toFixed(2);
+      return bill;
+    }, 0)).toFixed(2);
   }
 
   getGuestTotalBillToday(id, date) {
@@ -79,9 +75,9 @@ class Hotel {
   }
 
 
-  addNewCustomer(name) {
-    this.selectedCustomer = new Customer(this.customers.length + 1, name, this.bookings, this.orders);
-    this.customers.push(this.selectedCustomer);
+  addNewGuest(name) {
+    this.selectedGuest = new Guest(this.guests.length + 1, name, this.bookings, this.orders);
+    this.guests.push(this.selectedGuest);
   }
 
   getRoomsAvailable(date) {
@@ -100,18 +96,18 @@ class Hotel {
     } else {
       let available = this.getRoomsAvailable(date);
       let filteredRooms = available.filter(room => {
-      return room.roomType.toUpperCase() === type.toUpperCase();
-    });
-    domUpdates.appendAvailableRooms(filteredRooms);
-    return filteredRooms;
+        return room.roomType.toUpperCase() === type.toUpperCase();
+      });
+      domUpdates.appendAvailableRooms(filteredRooms);
+      return filteredRooms;
     }
   }
 
-  getTotalRevenue(date) {
+  getTotalRevenue() {
     let bookingsTotal = this.todayBookings.reduce((total, booking) => {
       this.rooms.find(room => {
         if (room.number === booking.roomNumber) {
-        total += room.costPerNight;
+          total += room.costPerNight;
         }
       });
       return total;
@@ -123,9 +119,9 @@ class Hotel {
     return +(bookingsTotal + ordersTotal).toFixed(2);
   }
 
-  getPercentOccupancy(date) {
+  getPercentOccupancy() {
     let percent = +(((this.todayBookings.length / this.rooms.length) * 100).toFixed(2));
-  return percent;
+    return percent;
   }
 
   unbookRoom(booking) {
@@ -133,15 +129,19 @@ class Hotel {
       return JSON.stringify(Object.values(reservation)) === JSON.stringify(Object.values(booking));
     });
     this.bookings.splice(roomToUnbook, 1);
+    let unbookFromGuest = this.selectedGuest.selectedBookings.findIndex(reservation => {
+      return JSON.stringify(Object.values(reservation)) === JSON.stringify(Object.values(booking));
+    });
+    this.selectedGuest.selectedBookings.splice(unbookFromGuest);
   }
 
   bookRoom(id, day, rmNum) {
     let addedBooking = new Booking(id, day, rmNum)
     this.bookings.push(addedBooking);
-    this.selectedCustomer.selectedBookings.push(addedBooking);
+    this.selectedGuest.selectedBookings.push(addedBooking);
   }
 
-  createMenu(orders) {
+  createMenu() {
     return this.orders.reduce((items, order) => {
       if (!items.includes({food: order.food, price: order.totalCost})) {
         items.push({food: order.food, price: order.totalCost});
@@ -208,8 +208,6 @@ class Hotel {
     domUpdates.appendMostAvailableDays(leastBookings, this.rooms);
     return leastBookings;
   }
-
-
 
 }
 

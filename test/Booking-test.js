@@ -1,10 +1,7 @@
 import chai from 'chai';
-// import spies from "chai-spies";
 const expect = chai.expect;
-// chai.use(spies);
 
 import Booking from '../src/Booking';
-import bookings from '../src/sample-data/bookings-sample-data';
 
 describe('Booking', () => {
   let date, booking;
@@ -18,6 +15,12 @@ describe('Booking', () => {
     expect(Booking).to.be.a('function');
   });
 
-
+  it('should be able to create a booking', () => {
+    expect(booking).to.eql({
+      userID: 10,
+      date: '2019/09/22',
+      roomNumber: 2
+    });
+  });
 
 });

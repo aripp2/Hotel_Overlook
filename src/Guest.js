@@ -1,4 +1,4 @@
-class Customer {
+class Guest {
   constructor(id, name, bookings = null, orders = null) {
     this.id = id;
     this.name = name;
@@ -16,4 +16,4 @@ class Customer {
   
 }
 
-export default Customer;
+export default Guest;
