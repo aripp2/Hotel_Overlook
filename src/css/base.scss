@@ -1,22 +1,61 @@
-@import 'normalize';
 @import 'variables';
 @import url('https://fonts.googleapis.com/css?family=Gayathri:400,700&display=swap');
-
 
 *:after,
 *:before {
   box-sizing: border-box;
+  font-family: $main-font;
+  text-align: center;
 }
 
 body {
   color: $dark-font-color;
   background-color: $primary-background;
   font-family: $main-font;
+  margin: 0;
+}
+
+#splash {
+  height: 100vh;
+  background: url($picture-url);
+  background-size: cover;
+  background-repeat: no-repeat;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; 
+  h1 {
+    font-size: 6em;
+    font-weight: 700;
+  }
+  button {
+    color: $lighter-font-color;
+    height: 75px;
+    width: 200px;
+    font-family: $main-font;
+    font-size: 3em;
+    font-weight: 700;
+    background: $highlight-color;
+    border: 3px solid $lighter-background;
+    border-radius: 6px;
+    padding-top: 15px;
+    &:focus {
+      outline: none;
+    }
+    &:hover {
+      color: $primary-background;
+      background: $darker-background;
+      border: 6px outset $highlight-color;
+      cursor: pointer;
+    }
+  }
 }
 
 header {
-  margin: 0 auto;
-  height: 50px;
+  margin: 20px auto;
+  padding-top: 20px;
+  height: 70px;
   width: 95%;
   display: flex;
   justify-content: space-between;
@@ -26,19 +65,23 @@ header {
     font-size: 2em;
     font-weight: 700;
   }
-
 }
 
 aside {
   width: 25%;
-  padding-top: 50px;
   display: flex;
   flex-direction: column;
-  align-content: center;
+  margin: 0 auto;
+
+  h4 {
+    margin: 10px auto;
+  }
+
   ul {
     font-size: 1.2em;
     display: block;
     text-align: center;
+
     li {
       list-style: none;
     }
@@ -49,10 +92,11 @@ aside {
   width: 75%;
   display: flex;
   flex-direction: column;
+
   h4 {
     font-size: 2em;
     font-weight: 700;
-    margin: 30px auto;
+    margin: 30px auto 10px auto;
   }
 }
 
@@ -67,13 +111,19 @@ h2 {
 
 h3 {
   font-size: 1em;
+  margin-left: 25px;
 }
 
 h4 {
-  font-size: 1.5em;
+  font-size: 1.8em;
   text-align: center;
 }
 
+h5 {
+  font-size: 1.5em;
+  text-align: center;
+  margin: 10px auto;
+}
 
 //*****Tabs*****//
 
@@ -89,26 +139,30 @@ ul {
   flex-direction: row;
   justify-content: space-between;
 }
+
 .tabs-nav li {
   list-style: none;
   width: 50%;
 }
+
 .tabs-nav li:first-child a {
   border-right: 0;
   border-top-left-radius: 6px;
 }
+
 .tabs-nav li:last-child a {
   border-top-right-radius: 6px;
 }
+
 a {
-  height: 35px;
+  height: 50px;
   background: $accent-color;
   border: 1px solid $lighter-font-color;
   color: $lighter-font-color;
   display: block;
   font-size: 2em;
   font-weight: 600;
-  padding: 20px 0;
+  padding: 20px 0 0 0;
   text-align: center;
   text-decoration: none;
 
@@ -116,12 +170,14 @@ a {
     color: $primary-background;
   }
 }
+
 .tab-active a {
   background: $highlight-color;
   border-bottom-color: transparent;
   color: $dark-font-color;
   cursor: default;
 }
+
 .tabs-content {
   background: $highlight-color;
   border: 1px solid $lighter-font-color;
@@ -137,33 +193,96 @@ a {
 
 table {
   width: 90%;
-  margin: auto;
+  margin: 0 auto;
   text-align: center;
   border: 2px solid $lighter-font-color;
+  border-radius: 5px;
 }
 
 th {
   height: 35px;
   font-size: 1.5em;
   font-weight: 700;
-  padding-top: 5px;
-  vertical-align: center;
+  padding-top: 15px;
   background-color: $primary-background;
-  border: 3px solid $lighter-font-color;
+  border: 3px inset $darker-background;
+  border-radius: 5px;
 }
 
 tr td {
   height: 30px;
   font-size: 1.3em;
   background: $lighter-background;
-  border: 2px solid $lighter-font-color;
-  padding-top: 5px;
-  &:buttons {
-  width: 100%;
-  }
-  td {
-    padding: 20%;
-  }
+  margin: 0;
+  padding-top: 10px;
+  border: 1px solid $lighter-font-color;
+  border-radius: 2px;
+}
+
+.none {
+  height: 50px;
+  font-size: 1.5em;
+  border: none;
+}
+
+//*****Inputs*****//
+
+form {
+  display: block;
+  text-align: center;
+}
+
+.select {
+  height: 35px;
+  width: 250px;
+  text-align: center;
+  margin: 10px auto;
+  padding-top: 15px;
+  font-family: $main-font;
+  font-size: 1.3em;
+  border-radius: 5px;
 }
 
 //*****Buttons*****//
+
+.search-btn {
+  height: 35px;
+  width: 200px;
+  font-size: 1em;
+  margin-top: 10px;
+  border: 2px inset $accent-color;
+  border-radius: 5px;
+  &:enabled:hover {
+    color: $primary-background;
+    background: $darker-background;
+    border: 5px outset $highlight-color;
+    outline: none;
+    cursor: pointer;
+  }
+  &:disabled:hover {
+    cursor: not-allowed;
+  }
+}
+
+.cancel-booking-btn,
+.add-food-btn,
+.book-it {
+  height: 30px;
+  width: 100px;
+  margin-top: -15px;
+  font-size: 1em;
+  border: 2px inset $accent-color;
+  border-radius: 5px;
+  &:enabled:hover {
+    color: $primary-background;
+    background: $darker-background;
+    border: 5px outset $highlight-color;
+    outline: none;
+    cursor: pointer;
+  }
+  &:disabled:hover {
+    cursor: not-allowed;
+  }
+}
+
+

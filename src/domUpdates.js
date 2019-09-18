@@ -30,6 +30,9 @@ export default {
   },
 
   appendTodaysOrders(orders, guests) {
+    if (orders.length > 0) {
+      $('.no-orders').remove()
+    }
     orders.forEach(order => {
       let name = guests.find(guest => guest.id === order.userID).name;
       $('.todays-orders').append(
@@ -76,6 +79,7 @@ export default {
     sortedBookings.forEach(booking => {
       let day = this.reformatDate(booking.date);
       if (Date.parse(today) <= Date.parse(booking.date)) {
+        $('.no-bookings').remove();
         $('.guest-bookings').append(
           `<tr class="guest-data">
             <td>${day}</td> 
@@ -85,6 +89,7 @@ export default {
             <td><button class="add-food-btn">Order</button></td>
           </tr>`);
       } else {
+        $('.no-past').remove();
         $('.past-bookings').append(
           `<tr class="guest-data">
             <td>${day}</td> 
@@ -100,6 +105,7 @@ export default {
     sortedOrders.forEach(order => {
       let day = this.reformatDate(order.date);
       if (Date.parse(today) <= Date.parse(order.date)) {
+        $('.no-upcoming').remove();
         $('.guest-orders').append(
           `<tr class="guest-data">
             <td>${day}</td>
@@ -107,6 +113,7 @@ export default {
             <td>$${order.totalCost.toFixed(2).toLocaleString()}</td>
           </tr>`);
       } else {
+        $('.no-past-orders').remove();
         $('.past-orders').append(
           `<tr class="guest-data">
             <td>${day}</td>
@@ -119,7 +126,7 @@ export default {
 
   appendPopularDays(days) {
     $('.popular-day').remove();
-    $('#popular-count').text(`With ${days.num} bookings`);
+    $('#popular-count').text(`${days.num} Bookings`);
     days.days.forEach(day => {
       let fixedDate = this.reformatDate(day);
       $('#popular-dates').append(
@@ -129,7 +136,7 @@ export default {
 
   appendMostAvailableDays(days, rooms) {
     $('least-popular').remove();
-    $('#available-count').text(`With ${rooms.length - days.num} rooms still available`);
+    $('#available-count').text(`${rooms.length - days.num} Unbooked Rooms`);
     days.days.forEach(day => {
       let fixedDate = this.reformatDate(day);
       $('#most-available').append(

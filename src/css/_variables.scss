@@ -5,14 +5,10 @@ $dark-font-color: #2C2C34;
 $lighter-font-color: #494850;
 $accent-color: #978897;
 $lighter-background: lighten($highlight-color, 10%);
-
+$darker-background: darken($highlight-color, 30%);
 
 // Fonts
 $main-font: 'Gayathri', sans-serif;
-$simple-font: sans-serif;
-// $accent-font: ;
 
 
-
-// $outer-border-width: 4px;
-// $inner-border-width: 4px;
+$picture-url: 'https://images.unsplash.com/photo-1460411794035-42aac080490a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80';

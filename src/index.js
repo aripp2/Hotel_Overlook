@@ -71,15 +71,19 @@ const appendPercentChart = () => {
 }
 
 $(document).ready(() => {
-  // $('#page').hide();
+  $('#page').hide();
   $('.guest-selected').hide();
   $('.tabs-content div').hide();
   $('.tabs-content div:first').show();
   $('.tabs-nav li:first').addClass('tab-active');
+
+  $('#enter').click(() => {
+    $('#splash').slideUp(750);
+    $('#page').fadeIn(500);
+  });
   
-  // Change tab class and display content
-  $('.tabs-nav a').on('click', function(event) {
-    event.preventDefault();
+  $('.tabs-nav a').on('click', function(e) {
+    e.preventDefault();
     $('.tabs-nav li').removeClass('tab-active');
     $(this).parent().addClass('tab-active');
     $('.tabs-content div').hide();
@@ -91,12 +95,13 @@ $(document).ready(() => {
     id = parseInt(id);
     hotel.getGuestById(id);
     updateGuest(hotel.selectedGuest.id);
-    // domUpdates.appendSelectedGuest(hotel.selectedGuest, hotel.rooms, date);
   });
 
   $('#new-guest-input').on('change', () => {
     $('#add-guest-btn').prop('disabled', false);
-    $('#add-guest-btn').click(() => {
+    $('#add-guest-btn').click((e) => {
+      e.preventDefault();
+      $('#add-guest-btn').prop('disabled', true);
       let name = $('#new-guest-input').val();
       $('#new-guest-input').val('');
       hotel.addNewGuest(name);
@@ -104,11 +109,11 @@ $(document).ready(() => {
       $('.guest-names').append(`<option>Select a Guest...</option>`)
       domUpdates.makeGuestNames(hotel.guests);
       updateGuest(hotel.selectedGuest.id);
-      // domUpdates.appendSelectedGuest(hotel.selectedGuest, hotel.rooms, date);
     });
   });
 
   $('#room-type').on('change', () => {
+    $('#filter-rooms').prop('disabled', false);
     let rmType = $('#room-type option:selected').val();
     let searchDate = $('#find-available').val().replace(/-/g, "/");
     $('#filter-rooms').click((e) => {
@@ -138,7 +143,6 @@ $(document).ready(() => {
         roomNumber: room
       };
       hotel.unbookRoom(bookingToCancel);
-      //update main
       updateAllTabs();
     }
   });
@@ -148,10 +152,10 @@ $(document).ready(() => {
     createMainTab();
     hotel.getFilteredRooms('all', date);
     updateGuest(hotel.selectedGuest.id);
-      // domUpdates.appendSelectedGuest(hotel.selectedGuest, hotel.rooms, date);
   };
 
   const updateGuest = (id) => {
+    $('#seach-prompt').hide();
     domUpdates.appendSelectedGuest(hotel.selectedGuest, hotel.rooms, date);
     let bookingsTotal = hotel.getGuestBookingsTotalToday(id, date);
     let ordersTotal = hotel.getGuestOrdersTotalToday(id, date);
