@@ -4,7 +4,11 @@ $highlight-color: #B18FCF;
 $dark-font-color: #2C2C34;
 $lighter-font-color: #494850;
 $accent-color: #978897;
+$lighter-background: lighten($highlight-color, 10%);
+
+
 // Fonts
+$main-font: 'Gayathri', sans-serif;
 $simple-font: sans-serif;
 // $accent-font: ;
 

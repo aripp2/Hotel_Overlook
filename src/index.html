@@ -12,8 +12,8 @@
     <main id="page">
       <header>
         <h2>Hotel Overlook</h2>
-        <h3>Today is <span id="today"></span></h3>
         <h3 class="guest-name">Welcome</h3>
+        <h3>Today is <span id="today"></span></h3>
       </header>
       <div class="tabs">
         <ul class="tabs-nav">
@@ -23,33 +23,35 @@
           <li><a href="#room-service">Room Service</a></li>
         </ul>
         <div class="tabs-content">
-          <div id="main">
+          <div id="main" class="tab-page">
             <aside id="hotel-info">
               <figure>
-                <h4>Today's Occupancy</h4>
-                <canvas id="occupancy" width="300px" height="300px"></canvas>
+                <h4>We are <span id="percent"></span> Occupied Today</h4>
+                <canvas id="occupancy" width="250px" height="250px"></canvas>
               </figure>
             </aside>
-          <table class="todays-bookings">
-            <h4>Today's Bookings:</h4>
-            <tr>
-              <th>Guest ID</th>
-              <th>Guest Name</th>
-              <th>Room Number</th>
-              <th>Nightly Cost</th>
-            </tr>
-          </table>
-          <table class="todays-orders">
-            <h4>Today's Room Service Orders:</h4>
-            <tr>
-              <th>Guest ID</th>
-              <th>Guest Name</th>
-              <th>Food Item</th>
-              <th>Total Cost</th>
-            </tr>
-          </table>
+            <section class="tab-tables">
+              <table class="todays-bookings">
+                <h4>Today's Bookings:</h4>
+                <tr>
+                  <th>Guest ID</th>
+                  <th>Guest Name</th>
+                  <th>Room Number</th>
+                  <th>Nightly Cost</th>
+                </tr>
+              </table>
+              <table class="todays-orders">
+                <h4>Today's Room Service Orders:</h4>
+                <tr>
+                  <th>Guest ID</th>
+                  <th>Guest Name</th>
+                  <th>Food Item</th>
+                  <th>Total Cost</th>
+                </tr>
+              </table>
+            </section>
           </div>
-          <div id="guest">
+          <div id="guest" class="tab-page">
             <aside>
               <form id="guest-search">
                 <h4>Select a Guest:</h4>
@@ -67,49 +69,50 @@
                 <h5>Today's total bill: <span id="total-bill"></span></h5>
                 <h5>Today's Bookings Total: <span id="booking-total"></span></h5>
                 <h5>Today's Orders Total: <span id="order-total"></span></h5>
+                <h5>All Time Bookings Total: <span id="all-time-bookings"></span></h5>
                 <h5>All Time Orders Total: <span id="all-time-orders"></span></h5>
-                
               </section>
             </aside>
-            <table class="guest-bookings guest-selected">
-              <h4 class="guest-selected">Upcoming Bookings:</h4>
-              <tr>
-                <th>Date</th>
-                <th>Room Number</th>
-                <th>Nightly Cost</th>
-                <th>Cancel Booking</th>
-                <th>Change Booking</th>
-                <th>Add Room Service</th>
-              </tr>
-            </table>
-            <table class="past-bookings guest-selected">
-              <h4 class="guest-selected">Past Bookings:</h4>
-              <tr>
-                <th>Date</th>
-                <th>Room Number</th>
-                <th>Nightly Cost</th>
-              </tr>
-            </table>
-            <table class="guest-orders guest-selected">
-              <h4 class="guest-selected">Upcoming Orders:</h4>
-              <tr>
-                <th>Date</th>
-                <th>Food Item</th>
-                <th>Total Cost</th>
-                <th></th>
-              </tr>
-            </table>
-            <table class="past-orders guest-selected">
-              <h4 class="guest-selected">Past Orders:</h4>
-              <tr>
-                <th>Date</th>
-                <th>Food Item</th>
-                <th>Total Cost</th>
-                <th></th>
-              </tr>
-            </table>
+            <section class="tab-tables">
+              <table class="guest-bookings guest-selected">
+                <h4 class="guest-selected">Upcoming Bookings:</h4>
+                <tr>
+                  <th>Date</th>
+                  <th>Room Number</th>
+                  <th>Nightly Cost</th>
+                  <th>Cancel Booking</th>
+                  <th>Add Room Service</th>
+                </tr>
+              </table>
+              <table class="past-bookings guest-selected">
+                <h4 class="guest-selected">Past Bookings:</h4>
+                <tr>
+                  <th>Date</th>
+                  <th>Room Number</th>
+                  <th>Nightly Cost</th>
+                </tr>
+              </table>
+              <table class="guest-orders guest-selected">
+                <h4 class="guest-selected">Upcoming Orders:</h4>
+                <tr>
+                  <th>Date</th>
+                  <th>Food Item</th>
+                  <th>Total Cost</th>
+                  <th></th>
+                </tr>
+              </table>
+              <table class="past-orders guest-selected">
+                <h4 class="guest-selected">Past Orders:</h4>
+                <tr>
+                  <th>Date</th>
+                  <th>Food Item</th>
+                  <th>Total Cost</th>
+                  <th></th>
+                </tr>
+              </table>
+            </section>
           </div>
-          <div id="rooms">
+          <div id="rooms" class="tab-page">
             <aside>
               <h4>Most Popular Booking Dates:</h4> 
               <ul id="popular-dates"></ul>
@@ -117,8 +120,8 @@
               <h4>Days with most rooms available:</h4>
               <ul id="most-available"></ul>
               <h5 id="available-count"></h5>
-                <h4>Select a date to see Available Rooms:</h4>
-                <input type="date" name="calendar" id="find-available" min="2019-07-23" max="2019-10-31">
+              <h4>Select a date to see Available Rooms:</h4>
+              <input type="date" name="calendar" id="find-available" min="2019-07-23" max="2019-10-31">
               <form id="find-rooms">
                 <h4>Filter Results by Room Type</h4>
                 <select id="room-type">
@@ -132,30 +135,36 @@
                 <button id="filter-rooms">Search Available Rooms</button>
               </form>
             </aside>
-            <table class="available-rooms">
-              <h4>Available Rooms:</h4>
-              <tr>
-                <th>Number</th>
-                <th>Type</th>
-                <th>Bed Size</th>
-                <th>Bidet</th>
-                <th>Cost</th>
-                <th class="book guest-selected">Reserve</th>
-              </tr>
-            </table>
-          </div>
-          <div id="room-service">
-            <section id= "todays-orders-tab">
-              <table class="todays-orders">
-                <h4>Today's Room Service Orders:</h4>
+            <section class="tab-tables">
+              <table class="available-rooms">
+                <h4>Available Rooms:</h4>
                 <tr>
-                  <th>Guest ID</th>
-                  <th>Guest Name</th>
-                  <th>Food Item</th>
-                  <th>Total Cost</th>
+                  <th>Number</th>
+                  <th>Type</th>
+                  <th>Bed Size</th>
+                  <th>Bidet</th>
+                  <th>Cost</th>
+                  <th class="book guest-selected">Reserve</th>
                 </tr>
               </table>
             </section>
+          </div>
+          <div id="room-service" class="tab-page">
+            <aside>
+              
+            </aside>
+            <section class="tab-tables">
+              <section id= "todays-orders-tab">
+                <table class="todays-orders">
+                  <h4>Today's Room Service Orders:</h4>
+                  <tr>
+                    <th>Guest ID</th>
+                    <th>Guest Name</th>
+                    <th>Food Item</th>
+                    <th>Total Cost</th>
+                  </tr>
+                </table>
+              </section>
             <!-- <section > -->
               <table class="guest-orders guest-selected">
                 <h4 class="guest-selected">Upcoming Orders:</h4>
@@ -165,24 +174,22 @@
                   <th>Total Cost</th>
                   <th></th>
                 </tr>
-            </table>
-            <!-- </section> -->
-            <section id="menu" hidden>
-              <table class="menu">
-                <h4>Room Service Menu:</h4>
-                <tr>
-                  <th>Food Item</th>
-                  <th>Price</th>
-                  <th>Order Item</th>
-                </tr>
               </table>
+            <!-- </section> -->
+              <section id="menu" hidden>
+                <table class="menu">
+                  <h4>Room Service Menu:</h4>
+                  <tr>
+                    <th>Food Item</th>
+                    <th>Price</th>
+                    <th>Order Item</th>
+                  </tr>
+                </table>
+              </section>
             </section>
-
           </div>
         </div>
       </div>
     </main>
-
-   
   </body>
 </html>

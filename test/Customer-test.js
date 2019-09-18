@@ -7,7 +7,6 @@ import Customer from '../src/Customer';
 import customers from '../src/sample-data/customers-sample-data';
 import bookings from '../src/sample-data/bookings-sample-data';
 import orders from '../src/sample-data/orders-sample-data';
-import rooms from '../src/sample-data/rooms-sample-data';
 
 describe('Customer', () => {
   let date, customer;

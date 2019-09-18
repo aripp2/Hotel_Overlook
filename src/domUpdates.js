@@ -9,10 +9,10 @@ export default {
 
   appendHotelInfo(revenue, available, percent) {
     $('.main-info').remove();
+    $('#percent').text(`${percent}%`)
     $('#hotel-info').append(`
       <h4 class="main-info">Total Revenue Today: $${revenue.toLocaleString()}</h4>
-      <h4 class="main-info">Number of Rooms Available Today: ${available}</h4>
-      <h4 class="main-info">${percent}% Occupancy</h4>`)
+      <h4 class="main-info">${available} Rooms Still Available</h4>`)
   },
 
   appendTodaysBookings(bookings, guests, rooms) {
@@ -58,7 +58,7 @@ export default {
     this.appendGuestOrders(guest, today);
   },
 
-  appendGuestTotals(bill, bookings, orders, allTime) {
+  appendGuestTotals(bill, bookings, orders, allTimeBookings, allTimeOrders) {
     $('#guest-totals').show();
     $('#total-bill').text(`$${bill}`);
     $('#booking-total').text(`$${bookings}`);
@@ -82,7 +82,6 @@ export default {
         <td>${booking.roomNumber}</td>
         <td>$${booking.cost.toFixed(2).toLocaleString()}</td>
         <td><button class="cancel-booking-btn">Cancel</button></td>
-        <td><button class="change-booking-btn">Change</button></td>
         <td><button class="add-food-btn">Order</button></td>
       </tr>`);
     } else {

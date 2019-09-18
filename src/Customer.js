@@ -13,17 +13,6 @@ class Customer {
   findCustomerOrders(id, roomServices) {
     return roomServices.filter(order => order.userID === id);
   }
-
-  // getTotalBill(date, rooms) {
-  //   let bookingsBill = this.selectedBookings.reduce((bill, booking) => {
-  //     if (booking.date === date) {
-
-  //       bill += rooms.find(room => room.number === booking.roomNumber).costPerNight;
-  //     }
-  //     return bill;
-  //   }, 0);
-  //   console.log(bookingsBill)
-  // }
   
 }
 

@@ -53,7 +53,7 @@ const appendPercentChart = () => {
   percentChart = new Chart($('#occupancy'), {
     type: 'doughnut',
     data: {
-      labels: ['Occupied', 'Avaialble'],
+      labels: ['% Occupied', '% Avaialble'],
       datasets: [{
         label: 'Today\'s Occupancy',
         data: [hotel.getPercentOccupancy(date), 100 - hotel.getPercentOccupancy(date)],
@@ -151,9 +151,9 @@ $(document).ready(() => {
     let bookingsTotal = hotel.getGuestBookingsTotalToday(id, date);
     let ordersTotal = hotel.getGuestOrdersTotalToday(id, date)
     let bill = hotel.getGuestTotalBillToday(id, date);
-    let allTimeBookingTotal = hotel.getGuestAllTimeBookingTotal(id);
+    let allTimeBookingTotal = hotel.getGuestAllTimeBookingsTotal(id);
     let allTimeOrderTotal = hotel.getGuestAllTimeOrdersTotal(id);
-    domUpdates.appendGuestTotals(bill, bookingsTotal, ordersTotal, allTimeOrderTotal);
+    domUpdates.appendGuestTotals(bill, bookingsTotal, ordersTotal, allTimeBookingTotal, allTimeOrderTotal);
   }
 
 
