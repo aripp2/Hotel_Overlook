@@ -13,7 +13,7 @@
       <header>
         <h2>Hotel Overlook</h2>
         <h3>Today is <span id="today"></span></h3>
-        <h3 id="selected-guest">Welcome</h3>
+        <h3 class="guest-name">Welcome</h3>
       </header>
       <div class="tabs">
         <ul class="tabs-nav">
@@ -62,6 +62,14 @@
                 <input id="new-guest-input" type="text" placeholder="Enter New Guest's Name">
                 <button id="add-guest-btn" disabled="true">Add Guest</button>
               </form>
+              <section id="guest-totals" class="guest-selected">
+                <h4>Charges Breakdown for <span class="guest-name"></span></h4>
+                <h5>Today's total bill: <span id="total-bill"></span></h5>
+                <h5>Today's Bookings Total: <span id="booking-total"></span></h5>
+                <h5>Today's Orders Total: <span id="order-total"></span></h5>
+                <h5>All Time Orders Total: <span id="all-time-orders"></span></h5>
+                
+              </section>
             </aside>
             <table class="guest-bookings guest-selected">
               <h4 class="guest-selected">Upcoming Bookings:</h4>
@@ -110,7 +118,7 @@
               <ul id="most-available"></ul>
               <h5 id="available-count"></h5>
                 <h4>Select a date to see Available Rooms:</h4>
-                <input type="date" name="calendar" id="find-available">
+                <input type="date" name="calendar" id="find-available" min="2019-07-23" max="2019-10-31">
               <form id="find-rooms">
                 <h4>Filter Results by Room Type</h4>
                 <select id="room-type">

@@ -1,4 +1,3 @@
-// An example of how you import jQuery into a JS file if you use jQuery in that file
 import $ from 'jquery';
 import Chart from 'chart.js';
 import Hotel from '../src/Hotel';
@@ -6,9 +5,7 @@ import domUpdates from '../src/domUpdates';
 
 import './css/base.scss';
 
-// An example of how you tell webpack to use an image (also need to link to it in the index.html)
-// import './images/turing-logo.png'
-let date, today, hotel
+let date, today, hotel, percentChart;
 
 date = new Date().toISOString().replace('-', '/').split('T')[0].replace('-', '/');
 today = new Date().toString().split(' ').slice(0, 4).join(' ');
@@ -29,7 +26,7 @@ const createHotel = (date, rooms, bookings, roomServices, customers) => {
   createMainTab();
   createGuestsTab();
   createRoomsTab()
-  // domUpdates.appendMenu(hotel.menu);
+  domUpdates.appendMenu(hotel.menu);
 }
 
 const createMainTab = () => {
@@ -53,7 +50,7 @@ const createRoomsTab = () => {
 }
 
 const appendPercentChart = () => { 
-  const percentChart = new Chart($('#occupancy'), {
+  percentChart = new Chart($('#occupancy'), {
     type: 'doughnut',
     data: {
       labels: ['Occupied', 'Avaialble'],
@@ -63,11 +60,7 @@ const appendPercentChart = () => {
         backgroundColor: [
           '#494850',
           '#D8D8F6'
-        ],
-        // borderColor: [
-        //   '#2C2C34',
-        //   '#2C2C34'
-        // ]
+        ]
       }]
     },
     options: {
@@ -77,12 +70,9 @@ const appendPercentChart = () => {
   })
 }
 
-
 $(document).ready(() => {
   // $('#page').hide();
   $('.guest-selected').hide();
-  
-  // Show the first tab by default
   $('.tabs-content div').hide();
   $('.tabs-content div:first').show();
   $('.tabs-nav li:first').addClass('tab-active');
@@ -100,7 +90,8 @@ $(document).ready(() => {
     let id = $('#guest-search option:selected').val();
     id = parseInt(id);
     hotel.getCustomerById(id);
-    domUpdates.appendSelectedGuest(hotel.selectedCustomer, hotel.rooms, date);
+    updateGuest(hotel.selectedCustomer.id);
+    // domUpdates.appendSelectedGuest(hotel.selectedCustomer, hotel.rooms, date);
   });
 
   $('#new-guest-input').on('change', () => {
@@ -112,13 +103,13 @@ $(document).ready(() => {
       $('.guest-names').empty('option');
       $('.guest-names').append(`<option>Select a Guest...</option>`)
       domUpdates.makeGuestNames(hotel.customers);
-      domUpdates.appendSelectedGuest(hotel.selectedCustomer, hotel.rooms, date);
+      updateGuest(hotel.selectedCustomer.id);
+      // domUpdates.appendSelectedGuest(hotel.selectedCustomer, hotel.rooms, date);
     })
   })
 
   $('#room-type').on('change', () => {
       let rmType = $('#room-type option:selected').val();
-      console.log('room', rmType)
       let searchDate = $('#find-available').val();
       searchDate = searchDate.replace('-', '/').replace('-', '/');
       console.log('date', searchDate)
@@ -130,19 +121,59 @@ $(document).ready(() => {
 
   $('#rooms').click((e) => {
     if (e.target.classList.contains('book-it')) {
-      let room = e.target.id;
+      let room = parseInt(e.target.id);
       let id = hotel.selectedCustomer.id;
-      let searchDate = $('#find-available').val();
-      searchDate = searchDate.replace(/-/g, "/");
-      room = parseInt(room);
+      let searchDate = $('#find-available').val().replace(/-/g, "/");
       hotel.bookRoom(id, searchDate, room);
-      //update main
       // alert booking made?
-      hotel.getFilteredRooms('all', date);
-      domUpdates.appendSelectedGuest(hotel.selectedCustomer, hotel.rooms, date);
-
+      updateAllTabs();
     }
   })
+
+  const updateChartData = (chart) => {
+    chart.data.datasets.data = [hotel.getPercentOccupancy(date), 100 - hotel.getPercentOccupancy(date)];
+    chart.update();
+  }
+
+  const updateAllTabs = () => {
+    $('.todays-bookings-list').remove();
+    updateChartData(percentChart);
+      createMainTab();
+      hotel.getFilteredRooms('all', date);
+      updateGuest(hotel.selectedCustomer.id);
+      // domUpdates.appendSelectedGuest(hotel.selectedCustomer, hotel.rooms, date);
+  }
+
+  // function updateGuest(id){
+  const updateGuest = (id) => {
+    domUpdates.appendSelectedGuest(hotel.selectedCustomer, hotel.rooms, date);
+    // let id = hotel.selectedCustomer.id;
+    let bookingsTotal = hotel.getGuestBookingsTotalToday(id, date);
+    let ordersTotal = hotel.getGuestOrdersTotalToday(id, date)
+    let bill = hotel.getGuestTotalBillToday(id, date);
+    let allTimeBookingTotal = hotel.getGuestAllTimeBookingTotal(id);
+    let allTimeOrderTotal = hotel.getGuestAllTimeOrdersTotal(id);
+    domUpdates.appendGuestTotals(bill, bookingsTotal, ordersTotal, allTimeOrderTotal);
+  }
+
+
+
+
+
+
+
+
+  // $('#rooms').click((e) => {
+  //   if (e.target.classList.contains('cancel-booking-btn')) {
+  //     let room = parseInt(e.target.id);
+  //     let id = hotel.selectedCustomer.id;
+  //     let searchDate = $('#find-available').val().replace(/-/g, "/");
+  //     hotel.unbookRoom(id, searchDate, room);
+  //     //update main
+  //     // alert booking made?
+  //     updateAllTabs();
+  //   }
+  // })
 
 
 });

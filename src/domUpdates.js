@@ -8,10 +8,11 @@ export default {
   },
 
   appendHotelInfo(revenue, available, percent) {
+    $('.main-info').remove();
     $('#hotel-info').append(`
-      <h4>Total Revenue Today: $${revenue.toFixed(2).toLocaleString()}</h4>
-      <h4>Number of Rooms Available Today: ${available}</h4>
-      <h4>${percent}% Occupancy</h4>`)
+      <h4 class="main-info">Total Revenue Today: $${revenue.toLocaleString()}</h4>
+      <h4 class="main-info">Number of Rooms Available Today: ${available}</h4>
+      <h4 class="main-info">${percent}% Occupancy</h4>`)
   },
 
   appendTodaysBookings(bookings, guests, rooms) {
@@ -19,7 +20,7 @@ export default {
       let name = guests.find(guest => guest.id === booking.userID).name;
       let cost = rooms.find(room => room.number === booking.roomNumber).costPerNight;
       $('.todays-bookings').append(
-      `<tr>
+      `<tr class="todays-bookings-list">
         <td>${booking.userID}</td>
         <td>${name}</td>
         <td>${booking.roomNumber}</td>
@@ -50,11 +51,20 @@ export default {
 
   appendSelectedGuest(guest, rooms, today) {
     $('.guest-data').remove();
-    $('#selected-guest').text(guest.name);
+    $('.guest-name').text(guest.name);
     $('.guest-selected').show();
     $('#todays-orders-tab').hide();
     this.appendGuestBookings(guest, rooms, today);
     this.appendGuestOrders(guest, today);
+  },
+
+  appendGuestTotals(bill, bookings, orders, allTime) {
+    $('#guest-totals').show();
+    $('#total-bill').text(`$${bill}`);
+    $('#booking-total').text(`$${bookings}`);
+    $('#order-total').text(`$${orders}`);
+    $('#all-time-bookings').text(`$${allTimeBookings}`);
+    $('#all-time-orders').text(`$${allTimeOrders}`);
   },
 
   appendGuestBookings(guest, rooms, today) {
@@ -109,21 +119,23 @@ export default {
   },
 
   appendPopularDays(days) {
+    $('.popular-day').remove();
     $('#popular-count').text(`With ${days.num} bookings`);
     days.days.forEach(day => {
       let fixedDate = this.reformatDate(day);
       $('#popular-dates').append(
-        `<li>${fixedDate}</li>`
+        `<li class="popular-day">${fixedDate}</li>`
         )
     });
   },
 
   appendMostAvailableDays(days, rooms) {
+    $('least-popular').remove();
     $('#available-count').text(`With ${rooms.length - days.num} rooms still available`);
     days.days.forEach(day => {
       let fixedDate = this.reformatDate(day);
       $('#most-available').append(
-        `<li>${fixedDate}</li>`
+        `<li class="least-popular">${fixedDate}</li>`
         )
     });
   },

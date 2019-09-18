@@ -14,7 +14,6 @@ class Hotel {
     this.todayOrders = [];
     this.selectedCustomer = null;
     this.menu = this.createMenu(orders); 
-    // console.log(this.menu)
   }
 
 // update tests
@@ -33,15 +32,56 @@ class Hotel {
 
   getCustomerById(id) {
     this.selectedCustomer = this.customers.find(customer => customer.id === id);
-    // domUpdates.appendSelectedGuest(this.selectedCustomer, this.rooms, this.date);
+  }
+
+  getGuestBookingsTotalToday(id, date) {
+    return +(this.bookings.reduce((bill, booking) => {
+      if (booking.date === date && booking.userID === id) {
+
+        bill += this.rooms.find(room => room.number === booking.roomNumber).costPerNight;
+      }
+      return bill;
+    }, 0)).toFixed(2);
+  }
+
+  getGuestOrdersTotalToday(id, date) {
+    return +(this.orders.reduce((bill2, order) => {
+      if (order.date === date && order.userID === id) {
+        bill2 += order.totalCost;
+      }
+      return bill2;
+    },0)).toFixed(2);
+  }
+
+  getGuestTotalBillToday(id, date) {
+    let bookingsBill = this.getGuestBookingsTotalToday(id, date);
+    let ordersBill = this.getGuestOrdersTotalToday(id, date);
+    let total = +(bookingsBill + ordersBill).toFixed(2);
+    return total;
+  }
+
+  getGuestAllTimeBookingsTotal(id) {
+    return +(this.bookings.reduce((total, booking) => {
+      if (booking.userID === id) {
+        total += this.rooms.find(room => room.number === booking.roomNumber).costPerNight;
+      }
+      return total;
+    }, 0)).toFixed(2);
+  }
+
+  getGuestAllTimeOrdersTotal(id) {
+    return +(this.orders.reduce((total, order) => {
+      if (order.userID === id) {
+        total += order.totalCost;
+      }
+      return total;
+    }, 0)).toFixed(2);
   }
 
 
   addNewCustomer(name) {
     this.selectedCustomer = new Customer(this.customers.length + 1, name, this.bookings, this.orders);
     this.customers.push(this.selectedCustomer);
-    // domUpdates.appendSelectedGuest(this.selectedCustomer, this.rooms, this.date);
-    // return added;
   }
 
   getRoomsAvailable(date) {
@@ -98,7 +138,6 @@ class Hotel {
   bookRoom(id, day, rmNum) {
     let addedBooking = new Booking(id, day, rmNum)
     this.bookings.push(addedBooking);
-    //add method to customer?
     this.selectedCustomer.selectedBookings.push(addedBooking);
   }
 

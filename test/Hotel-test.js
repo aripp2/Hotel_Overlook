@@ -65,7 +65,6 @@ describe('Hotel', () => {
   it('should be able to get customer info by their id', () => {
     hotel.getCustomerById(10);
     expect(hotel.selectedCustomer.name).to.equal('Chyna Gulgowski');
-    // expect(domUpdates.appendSelectedGuest).to.have.been.called(1);
   });
 
   it('should be able to add a new customer', () => {
@@ -77,7 +76,26 @@ describe('Hotel', () => {
       selectedOrders: []
     });
     expect(hotel.customers.length).to.equal(11);
-    // expect(domUpdates.appendSelectedGuest).to.have.been.called(2);
+  });
+
+  it('should be able to calculate bookings bill', () => {
+    expect(hotel.getGuestBookingsTotalToday(10, date)).to.equal(177.03);
+  });
+
+  it('should be able to calculate orders bill', () => {
+    expect(hotel.getGuestOrdersTotalToday(10, date)).to.equal(22.45);
+  });
+
+  it('should be able to calculate total bill', () => {
+    expect(hotel.getGuestTotalBillToday(10, date)).to.equal(199.48);
+  });
+
+  it('should be able to calculate all time bookings total for guest', () => {
+    expect(hotel.getGuestAllTimeBookingsTotal(10)).to.equal(732.8);
+  });
+
+  it('should be able to calculate all time orders total for guest', () => {
+    expect(hotel.getGuestAllTimeOrdersTotal(10)).to.equal(52.43);
   });
 
   it('should be able to get rooms available for date', () => {
@@ -108,6 +126,7 @@ describe('Hotel', () => {
   });
 
   it('should be able to book a room', () => {
+    hotel.getCustomerById(10);
     hotel.bookRoom(10, '2019/10/10', 2);
     expect(hotel.bookings[hotel.bookings.length - 1]).to.eql({userID: 10, date: '2019/10/10', roomNumber: 2}); 
   });

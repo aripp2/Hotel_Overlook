@@ -14,8 +14,17 @@ class Customer {
     return roomServices.filter(order => order.userID === id);
   }
 
-  // getGuest
+  // getTotalBill(date, rooms) {
+  //   let bookingsBill = this.selectedBookings.reduce((bill, booking) => {
+  //     if (booking.date === date) {
 
+  //       bill += rooms.find(room => room.number === booking.roomNumber).costPerNight;
+  //     }
+  //     return bill;
+  //   }, 0);
+  //   console.log(bookingsBill)
+  // }
+  
 }
 
 export default Customer;
